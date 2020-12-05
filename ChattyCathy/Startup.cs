@@ -4,8 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using Microsoft.Owin.Cors;
+using Owin;
 using ChattyCathy.Hubs;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,8 +28,6 @@ namespace ChattyCathy
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSignalR();
-
             services.AddCors(options =>
             {
                 options.AddPolicy("ClientPermission", policy =>
@@ -36,9 +35,17 @@ namespace ChattyCathy
                     policy.AllowAnyHeader()
                         .AllowAnyMethod()
                         .WithOrigins("http://localhost:3000")
-                        .AllowCredentials();
+                        .AllowCredentials()
+                        .SetIsOriginAllowedToAllowWildcardSubdomains()
+                        .SetIsOriginAllowed(delegate (string requestingOrigin)
+                        {
+                            return true;
+                        });
                 });
             });
+            services.AddSignalR();
+
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,16 +58,14 @@ namespace ChattyCathy
 
             app.UseHttpsRedirection();
 
-            app.UseCors("ClientPermission");
-
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseCors("ClientPermission");
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapHub<ChatHub>("/hubs/chat");
+                endpoints.MapHub<ChatHub>("/chatroom");
             });
         }
     }
