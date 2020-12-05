@@ -20,7 +20,18 @@ class TheNavbar extends React.Component {
     toggle = () => {
         this.setState({ isOpen: !this.state.isOpen });
       }
-      
+
+    authedProfile = () => {
+        if (authed) {
+            return(
+                <NavItem>
+                  <NavLink tag={RRNavLink} to='/profile/:uid'>Profile</NavLink>
+                </NavItem>
+            )
+        }
+       
+    }
+
     render() {
         const { isOpen } = this.state;
         return (
@@ -33,9 +44,7 @@ class TheNavbar extends React.Component {
                 <NavItem>
                   <NavLink tag={RRNavLink} to='/chat'>Chat</NavLink>
                 </NavItem>
-                {/* <NavItem>
-                  <NavLink tag={RRNavLink} to='/profile'>New Item</NavLink>
-                </NavItem> */}
+                {}
                 {/* <NavItem>
                   <NavLink onClick={this.logOut}>Logout</NavLink>
                 </NavItem> */}
