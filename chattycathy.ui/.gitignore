@@ -6,7 +6,7 @@ node_modules/
 dist/
 build/
 .firebase/
-
+.eslintcache/
 # dependencies
 /node_modules
 /.pnp
