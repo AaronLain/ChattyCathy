@@ -1,0 +1,12 @@
+{
+    "baseUrl": "http://localhost:50036/chatroom",
+    "firebaseConfig" : {
+        "apiKey": "AIzaSyB63vc67ABsy50An1nIHLCgkiBiJpYBzrw",
+        "authDomain": "chatty-cathy-2b1f3.firebaseapp.com",
+        "projectId": "chatty-cathy-2b1f3",
+        "storageBucket": "chatty-cathy-2b1f3.appspot.com",
+        "messagingSenderId": "13470397661",
+        "appId": "1:13470397661:web:c42b0b7b5d91896a8c5734",
+        "measurementId": "G-RLYL28754E"
+      }
+}

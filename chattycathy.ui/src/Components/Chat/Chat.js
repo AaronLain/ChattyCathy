@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { HubConnectionBuilder } from '@microsoft/signalr';
-
+import {baseUrl} from '../Helpers/Data/constants.json'
 import ChatWindow from './ChatWindow/ChatWindow';
 import ChatInput from './ChatInput/ChatInput';
 
@@ -13,7 +13,7 @@ const Chat = () => {
 
     useEffect(() => {
         const newConnection = new HubConnectionBuilder()
-            .withUrl('http://localhost:50036/chatroom')
+            .withUrl(baseUrl)
             .withAutomaticReconnect()
             .build();
 
