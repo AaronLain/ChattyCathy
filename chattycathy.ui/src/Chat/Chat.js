@@ -12,13 +12,21 @@ const Chat = () => {
 
     useEffect(() => {
         const connection = new HubConnectionBuilder()
-            .withUrl('https://localhost:5001/hubs/chat')
+            .withUrl('https://localhost:5001/chatroom', {
+                transport: ['webSockets', 'longPolling']
+            })
             .withAutomaticReconnect()
             .build();
 
         connection.start()
             .then(result => {
                 console.log('Connected!');
+
+                connection.invoke('getConnectionId')
+                    .then((connectionId) => {
+                        console.log(connectionId, 'ConnectionId')
+                    })
+                    .catch(err => console.log('no connection id', err))
 
                 connection.on('ReceiveMessage', message => {
                     const updatedChat = [...latestChat.current];

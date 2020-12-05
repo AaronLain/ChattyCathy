@@ -1,5 +1,6 @@
+
 import React from 'react';
-import Chat from './Chat/Chat';
+import Chat from '../Chat/Chat';
 
 function App() {
   return (
