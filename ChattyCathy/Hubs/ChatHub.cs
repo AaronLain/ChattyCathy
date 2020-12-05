@@ -1,15 +1,16 @@
 ﻿using System;
-using System.Web;
+using System.Threading.Tasks;
 using ChattyCathy.Hubs.Clients;
+using ChattyCathy.Models;
 using Microsoft.AspNetCore.SignalR;
 
 namespace ChattyCathy.Hubs
 {
     public class ChatHub : Hub<IChatClient>
     {
-        public string GetConnectionId()
+        public async Task SendMessage(ChatMessage message)
         {
-            return Context.ConnectionId;
+            await Clients.All.ReceiveMessage(message);
         }
     }
 }

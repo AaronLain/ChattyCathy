@@ -28,7 +28,21 @@ namespace ChattyCathy
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("ClientPermission", policy =>
+                {
+                    policy.AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .WithOrigins("http://localhost:3000")
+                        .AllowCredentials()
+                        .SetIsOriginAllowedToAllowWildcardSubdomains()
+                        .SetIsOriginAllowed(delegate (string requestingOrigin)
+                        {
+                            return true;
+                        });
+                });
+            });
             services.AddSignalR();
 
            
@@ -46,9 +60,7 @@ namespace ChattyCathy
 
             app.UseRouting();
 
-           
-
-            app.UseCors(policy => policy.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
+            app.UseCors("ClientPermission");
 
             app.UseEndpoints(endpoints =>
             {
