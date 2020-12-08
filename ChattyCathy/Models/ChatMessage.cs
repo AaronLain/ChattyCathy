@@ -7,8 +7,12 @@ namespace ChattyCathy.Models
 {
     public class ChatMessage
     {
-        public string User { get; set; }
+        public int id { get; set; }
 
-        public string Message { get; set; }
+        public string Content { get; set; }
+
+        public int UserId { get; set; }
+
+        public DateTime Date { get; set; }
     }
 }

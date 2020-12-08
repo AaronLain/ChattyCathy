@@ -37,7 +37,7 @@ const registerUser = (user) => {
       .then(token => sessionStorage.setItem('token',token))
       
       //save the user to the the api
-      .then(() => axios.post(`${baseUrl}/customers`, userInfo))
+      .then(() => axios.post(`${baseUrl}/users`, userInfo))
       .catch(err => console.error('Post Customer broke', err));
   });
 };
