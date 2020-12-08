@@ -25,10 +25,10 @@ const registerUser = (user) => {
     //get email from firebase
     let userInfo = {
       EmailAddress: cred.user.email,
-      UserName: cred.user.firstName,
-      LastName: user.lastName,
-      ImageUrl: cred.user.mailingAddress,
-      Sentiment: user.isDeleted,
+      UserName: cred.user.displayName,
+      FBuid: cred.user.uid,
+      ImageUrl: cred.user.photoURL,
+      Sentiment: user.sentiment,
     };
 
     //get token from firebase
