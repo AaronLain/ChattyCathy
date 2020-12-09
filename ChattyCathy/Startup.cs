@@ -4,14 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.SignalR;
-using Microsoft.Owin.Cors;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using Owin;
 using ChattyCathy.Hubs;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using ChattyCathy.Data;
 
 namespace ChattyCathy
 {
@@ -28,6 +28,26 @@ namespace ChattyCathy
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddSingleton<IConfiguration>(Configuration);
+            services.AddTransient<ChatMessageRepository>();
+            services.AddTransient<UserRepository>();
+            services.AddTransient<SecretsRepository>();
+
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.IncludeErrorDetails = true;
+                    options.Authority = "https://securetoken.google.com/chatty-cathy-2b1f3";
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateLifetime = true,
+                        ValidateAudience = true,
+                        ValidateIssuer = true,
+                        ValidAudience = "chatty-cathy-2b1f3",
+                        ValidIssuer = "https://securetoken.google.com/chatty-cathy-2b1f3"
+                    };
+                });
             services.AddCors(options =>
             {
                 options.AddPolicy("ClientPermission", policy =>
