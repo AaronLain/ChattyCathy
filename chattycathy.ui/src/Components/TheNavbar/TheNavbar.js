@@ -9,7 +9,9 @@ import {
   NavItem,
   NavLink,
 } from 'reactstrap';
-
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import authData from '../Helpers/Data/authedData';
 
 
 class TheNavbar extends React.Component {
@@ -21,19 +23,11 @@ class TheNavbar extends React.Component {
         this.setState({ isOpen: !this.state.isOpen });
       }
 
-    authedProfile = () => {
-        if (authed) {
-            return(
-                <NavItem>
-                  <NavLink tag={RRNavLink} to='/profile/:uid'>Profile</NavLink>
-                </NavItem>
-            )
-        }
-       
-    }
+    
 
     render() {
         const { isOpen } = this.state;
+        const { authed } = this.props;
         return (
         <div className="DatNavbar">
           <Navbar color="light" light expand="md">
@@ -44,7 +38,10 @@ class TheNavbar extends React.Component {
                 <NavItem>
                   <NavLink tag={RRNavLink} to='/chat'>Chat</NavLink>
                 </NavItem>
-                {}
+                <NavItem>
+                  <NavLink tag={RRNavLink} to='/login'>Login</NavLink>
+                </NavItem>
+                
                 {/* <NavItem>
                   <NavLink onClick={this.logOut}>Logout</NavLink>
                 </NavItem> */}

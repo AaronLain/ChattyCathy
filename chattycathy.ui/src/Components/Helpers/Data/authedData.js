@@ -1,6 +1,6 @@
 import firebase from 'firebase';
 import axios from 'axios';
-import {baseUrl} from '../constants.json';
+import {baseUrl} from './constants.json';
 import { Redirect } from 'react-router-dom';
 
 // interceptors work by changing the outbound request before the xhr is sent 
