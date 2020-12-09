@@ -26,6 +26,7 @@ const registerUser = (user) => {
     let userInfo = {
       EmailAddress: cred.user.email,
       UserName: cred.user.displayName,
+      Password: user.password,
       FBuid: cred.user.uid,
       ImageUrl: cred.user.photoURL,
       Sentiment: user.sentiment,

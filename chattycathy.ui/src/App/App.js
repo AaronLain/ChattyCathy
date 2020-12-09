@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 import Chat from '../Components/Chat/Chat';
 import Home from '../Components/Home/Home';
+import Login from '../Components/Login/Login';
 import TheNavbar from '../Components/TheNavbar/TheNavbar';
 
 import fbConnection from '../Components/Helpers/Data/connection';
@@ -37,6 +38,7 @@ class App extends React.Component {
           <div className='container d-flex justify-content-center'>
             <Switch>
               <Route path='/' component={Home} authed={authed} />
+              <Route path='/login' component={Login} authed={authed} />
               <Route path='/chat' component={Chat} authed={authed} />
             </Switch>
           </div>
