@@ -10,8 +10,13 @@ const ChatInput = (props) => {
         const isUserProvided = user && user !== '';
         const isMessageProvided = message && message !== '';
 
+        console.log(isMessageProvided,'provided?')
+        console.log(isUserProvided, 'user?')
+
         if (isUserProvided && isMessageProvided) {
             props.sendMessage(user, message);
+            console.log(user, 'user')
+            console.log(message, 'message')
         } 
         else {
             alert('Please insert an user and a message.');
@@ -19,11 +24,15 @@ const ChatInput = (props) => {
     }
 
     const onUserUpdate = (e) => {
+        e.preventDefault()
         setUser(e.target.value);
+        console.log(e.target.value, 'user input')
     }
 
     const onMessageUpdate = (e) => {
+        e.preventDefault()
         setMessage(e.target.value);
+        console.log(e.target.value, 'chat')
     }
 
     return (
@@ -32,8 +41,8 @@ const ChatInput = (props) => {
             <label htmlFor="user">User:</label>
             <br />
             <input 
-                id="user" 
-                name="user" 
+                id="usern" 
+                name="usern" 
                 value={user}
                 onChange={onUserUpdate} />
             <br/>
@@ -41,8 +50,8 @@ const ChatInput = (props) => {
             <br />
             <input 
                 type="text"
-                id="message"
-                name="message" 
+                id="messagen"
+                name="messagen" 
                 value={message}
                 onChange={onMessageUpdate} />
             <br/><br/>

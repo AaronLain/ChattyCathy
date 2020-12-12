@@ -4,7 +4,7 @@ import {baseUrl} from '../Helpers/Data/constants.json'
 import ChatWindow from './ChatWindow/ChatWindow';
 import ChatInput from './ChatInput/ChatInput';
 
-const Chat = () => {
+const Chatty = () => {
     const [ connection, setConnection ] = useState(null);
     const [ chat, setChat ] = useState([]);
     const latestChat = useRef(null);
@@ -42,7 +42,7 @@ const Chat = () => {
             user: user,
             message: message
         };
-
+        console.log(latestChat.current, 'chat')
     if (connection.connectionStarted) {
         try {
             await connection.send('SendMessage', chatMessage);
@@ -65,4 +65,4 @@ const Chat = () => {
     );
 };
 
-export default Chat;
+export default Chatty;
