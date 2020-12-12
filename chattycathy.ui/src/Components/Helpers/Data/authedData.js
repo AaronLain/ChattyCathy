@@ -3,8 +3,7 @@ import axios from 'axios';
 import {baseUrl} from './constants.json';
 import { Redirect } from 'react-router-dom';
 
-// interceptors work by changing the outbound request before the xhr is sent 
-// or by changing the response before it's returned to our .then() method.
+// intercept request and create token
 axios.interceptors.request.use(function (request) {
   const token = sessionStorage.getItem('token');
 
@@ -17,29 +16,36 @@ axios.interceptors.request.use(function (request) {
   return Promise.reject(err);
 });
 
+const checkForUser = (uid) => {
+    getUsers().then((response) => {
+      console.log(response, 'get users response')
+    })
+}
+
 const registerUser = (user) => {
 
   //sub out whatever auth method firebase provides that you want to use.
-  return firebase.auth().createUserWithEmailAndPassword(user.email.trim(), user.password).then(cred => {
+  const provider = new firebase.auth.GoogleAuthProvider();
+  return firebase.auth().signInWithPopup(provider).then(cred => {
 
-    //get email from firebase
+
+    //get email, uid, and imageUrl from firebase
     let userInfo = {
-      EmailAddress: cred.user.email,
       UserName: cred.user.displayName,
-      Password: user.password,
       FBuid: cred.user.uid,
       ImageUrl: cred.user.photoURL,
-      Sentiment: user.sentiment,
+      Sentiment: 0,
     };
 
     //get token from firebase
     cred.user.getIdToken()
       //save the token to the session storage
-      .then(token => sessionStorage.setItem('token',token))
+      .then(token => sessionStorage.setItem('token', token))
       
       //save the user to the the api
       .then(() => axios.post(`${baseUrl}/users`, userInfo))
       .catch(err => console.error('Post Customer broke', err));
+      checkForUser(userInfo.FBuid);
   });
 };
 
@@ -69,7 +75,7 @@ const getUid = () => {
   return firebase.auth().currentUser.uid;
 };
 
-const getCustomers = () => new Promise((resolve, reject) => {
+const getUsers = () => new Promise((resolve, reject) => {
   axios.get(`${baseUrl}/users`)
       .then(response => resolve(response.data))
       .catch(err => reject(err));
@@ -81,5 +87,5 @@ export default {
   logoutUser, 
   registerUser,
   getUserInfo,
-  getCustomers
+  getUsers
 };

@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ChattyCathy.Controllers
 {
-    [Route("users")]
+    [Route("chatroom/users")]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -21,11 +21,11 @@ namespace ChattyCathy.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllCustomers()
+        public IActionResult GetUsers()
         {
-            var allCustomers = _repo.GetUsers();
+            var allUsers = _repo.GetUsers();
 
-            return Ok(allCustomers);
+            return Ok(allUsers);
         }
 
 
@@ -33,11 +33,19 @@ namespace ChattyCathy.Controllers
         [HttpGet("{id}")]
         public IActionResult GetUserById(int id)
         {
-            var customer = _repo.GetUserById(id);
+            var user = _repo.GetUserById(id);
 
-            if (customer == null) return NotFound("No user with that Id was found");
+            if (user == null) return NotFound("No user with that Id was found");
 
-            return Ok(customer);
+            return Ok(user);
+        }
+
+        [HttpPost]
+        public IActionResult CreateUser(User user)
+        {
+            _repo.Add(user);
+
+            return Created($"/chatroom/users/{user.UserId}", user);
         }
 
     }

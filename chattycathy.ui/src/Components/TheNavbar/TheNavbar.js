@@ -11,7 +11,7 @@ import {
 } from 'reactstrap';
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import authData from '../Helpers/Data/authedData';
+import authRequests from '../Helpers/Data/authedData';
 
 
 class TheNavbar extends React.Component {
@@ -23,7 +23,11 @@ class TheNavbar extends React.Component {
         this.setState({ isOpen: !this.state.isOpen });
       }
 
-    
+      loginClickEvent = (e) => {
+        const { user } = this.state;
+        e.preventDefault();
+        authRequests.registerUser(user);
+      };
 
     render() {
         const { isOpen } = this.state;
@@ -39,7 +43,7 @@ class TheNavbar extends React.Component {
                   <NavLink tag={RRNavLink} to='/chat'>Chat</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={RRNavLink} to='/login'>Login</NavLink>
+                <button className="btn btn-warning ml-auto" onClick={this.loginClickEvent}>Google Login</button>
                 </NavItem>
                 
                 {/* <NavItem>
