@@ -39,9 +39,10 @@ class App extends React.Component {
           <TheNavbar authed={authed} />
           <div className='container d-flex justify-content-center'>
             <Switch>
-              {/* <Route path='/' component={Home} authed={authed} /> */}
+              <Route path='/home' component={Home} authed={authed} />
               <Route path='/login' component={Login} authed={authed} />
               <Route path='/chat' component={Chat} authed={authed} />
+              <Redirect from="*" to="/home"/>
             </Switch>
           </div>
           </React.Fragment>
