@@ -18,7 +18,12 @@ axios.interceptors.request.use(function (request) {
 
 const checkForUser = (uid) => {
     getUsers().then((response) => {
-      console.log(response, 'get users response')
+      if (response.find(user => user.userId === uid)) {
+        return true;
+      } else {
+        return false;
+      }
+      
     })
 }
 
@@ -43,9 +48,14 @@ const registerUser = (user) => {
       .then(token => sessionStorage.setItem('token', token))
       
       //save the user to the the api
-      .then(() => axios.post(`${baseUrl}/users`, userInfo))
+      .then(() => {
+         axios.post(`${baseUrl}/users`, userInfo) 
+      })
+
+
+        
       .catch(err => console.error('Post Customer broke', err));
-      checkForUser(userInfo.FBuid);
+      //console.log(typeof checkForUser(userInfo(FBuid)))
   });
 };
 
