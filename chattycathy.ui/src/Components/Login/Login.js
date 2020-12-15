@@ -14,15 +14,11 @@ class Login extends React.Component {
   loginClickEvent = (e) => {
     const { user } = this.state;
     e.preventDefault();
-    authRequests
-      .loginUser(user)
-      .then(() => {
-        this.props.history.push('/animals');
-      })
-      .catch(() => {
-        window.alert('You are not logged in');
-        this.props.history.push('/register');
-      });
+    authRequests.registerUser(user);
+      // .catch(() => {
+      //   window.alert('You are not logged in');
+      //   this.props.history.push('/register');
+      // });
   };
 
   logOutClickEvent = (e) => {
