@@ -71,7 +71,7 @@ namespace ChattyCathy.Data
 
             var newId = db.ExecuteScalar<int>(sql, userToAdd);
 
-            userToAdd.id = newId;
+            userToAdd.UserId = newId;
 
         }
 

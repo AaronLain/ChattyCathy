@@ -53,7 +53,7 @@ const Chatty = () => {
         const chatMessage = {
             userName: user,
             content: message,
-            userId: () => checkUid(),
+            userId: checkUid(),
             date: moment(),
         };
         console.log(latestChat.current, 'chat')
