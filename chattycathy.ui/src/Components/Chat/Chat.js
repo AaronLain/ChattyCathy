@@ -1,27 +1,27 @@
 import React, { useState, useEffect, useRef } from 'react';
+import firebase from 'firebase';
+import moment from 'moment';
+import axios from 'axios';
 import { HubConnectionBuilder } from '@microsoft/signalr';
 import {baseUrl} from '../Helpers/Data/constants.json'
 import ChatWindow from './ChatWindow/ChatWindow';
 import ChatInput from './ChatInput/ChatInput';
 
+import messageData from '../Helpers/Data/messageData';
+
+
 const Chatty = () => {
-    const [ connection, setConnection ] = useState(null);
     const [ chat, setChat ] = useState([]);
     const latestChat = useRef(null);
 
     latestChat.current = chat;
 
     useEffect(() => {
-        const newConnection = new HubConnectionBuilder()
+        const connection = new HubConnectionBuilder()
             .withUrl(baseUrl)
             .withAutomaticReconnect()
             .build();
 
-            setConnection(newConnection)
-        }, []);
-    
-    useEffect(() => {
-        if (connection) {
             connection.start()
                 .then(result => {
                     console.log('Connected');
@@ -34,26 +34,38 @@ const Chatty = () => {
                     });
                 })
                 .catch(err => console.log('Connection failed: ', err))
-        }
-    }, [connection]);
+        }, []);
+    
+
+    const checkUid = () => {
+        const rUser = `anon${+ (Math.ceil(Math.random()) * Date.now())}`
+        console.log(typeof rUser, 'ruser')
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+              return firebase.auth().currentUser.uid
+            } else {
+              return rUser
+            }
+          });
+    }
 
     const sendMessage = async (user, message) => {
         const chatMessage = {
-            user: user,
-            message: message
+            userName: user,
+            content: message,
+            userId: () => checkUid(),
+            date: moment(),
         };
         console.log(latestChat.current, 'chat')
-    if (connection.connectionStarted) {
+        console.log(chatMessage, 'chatMessage')
+   
         try {
-            await connection.send('SendMessage', chatMessage);
+            await messageData.postMessage(chatMessage);
         }
         catch(err) {
             console.log(err);
         }
-    }
-    else {
-        alert('No connection to server.');
-    }
+
 }
 
     return (

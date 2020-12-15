@@ -15,24 +15,18 @@ const ChatInput = (props) => {
 
         if (isUserProvided && isMessageProvided) {
             props.sendMessage(user, message);
-            console.log(user, 'user')
-            console.log(message, 'message')
         } 
         else {
-            alert('Please insert an user and a message.');
+            alert('Please type a username and message!');
         }
     }
 
     const onUserUpdate = (e) => {
-        e.preventDefault()
         setUser(e.target.value);
-        console.log(e.target.value, 'user input')
     }
 
     const onMessageUpdate = (e) => {
-        e.preventDefault()
         setMessage(e.target.value);
-        console.log(e.target.value, 'chat')
     }
 
     return (
