@@ -6,7 +6,7 @@ node_modules/
 dist/
 build/
 .firebase/
-.eslintcache/
+.eslintcache
 src\Components\Helpers\Data\constants.json
 
 # dependencies

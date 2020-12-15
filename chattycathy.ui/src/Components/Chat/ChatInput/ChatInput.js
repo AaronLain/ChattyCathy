@@ -10,11 +10,14 @@ const ChatInput = (props) => {
         const isUserProvided = user && user !== '';
         const isMessageProvided = message && message !== '';
 
+        console.log(isMessageProvided,'provided?')
+        console.log(isUserProvided, 'user?')
+
         if (isUserProvided && isMessageProvided) {
             props.sendMessage(user, message);
         } 
         else {
-            alert('Please insert an user and a message.');
+            alert('Please type a username and message!');
         }
     }
 
