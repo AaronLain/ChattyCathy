@@ -62,7 +62,7 @@ namespace ChattyCathy.Data
                                ([UserName] 
                                ,[ImageUrl]
                                ,[Sentiment]
-                               ,[FBuid]
+                               ,[FBuid])
                         Output inserted.id
                         VALUES
                                (@userName,@imageUrl,@sentiment,@fBuid)";

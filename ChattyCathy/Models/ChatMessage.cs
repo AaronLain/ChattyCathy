@@ -15,6 +15,8 @@ namespace ChattyCathy.Models
 
         public int UserId { get; set; }
 
+        public int Sentiment { get; set; }
+
         public DateTime Date { get; set; }
     }
 }

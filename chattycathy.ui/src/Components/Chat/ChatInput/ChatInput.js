@@ -35,8 +35,8 @@ const ChatInput = (props) => {
             <label htmlFor="user">User:</label>
             <br />
             <input 
-                id="usern" 
-                name="usern" 
+                id="user" 
+                name="user" 
                 value={user}
                 onChange={onUserUpdate} />
             <br/>
@@ -44,8 +44,8 @@ const ChatInput = (props) => {
             <br />
             <input 
                 type="text"
-                id="messagen"
-                name="messagen" 
+                id="message"
+                name="message" 
                 value={message}
                 onChange={onMessageUpdate} />
             <br/><br/>

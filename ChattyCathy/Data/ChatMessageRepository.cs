@@ -27,13 +27,14 @@ namespace ChattyCathy.Data
         public void Add(ChatMessage messageToAdd)
         {
             var sql = @"INSERT INTO [dbo].[Messages]
-                               ([UserName] 
-                               ,[Content]
-                               ,[UserId]
-                               ,[Date]
-                        Output inserted.id
+                               ([UserName], 
+                                [Content],
+                                [UserId],
+                                [Sentiment],
+                                [Date])
+                        Output inserted.MessageId
                         VALUES
-                               (@userName,@content,@sentiment,@date)";
+                               (@userName,@content,@userId,@sentiment,@date)";
 
             using var db = new SqlConnection(_connectionString);
 

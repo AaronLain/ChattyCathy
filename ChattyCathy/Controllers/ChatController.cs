@@ -14,26 +14,29 @@ namespace ChattyCathy.Controllers
     {
         private readonly IHubContext<ChatHub, IChatClient> _chatHub;
 
-        public ChatController(IHubContext<ChatHub, IChatClient> chatHub)
+        ChatMessageRepository _repo;
+
+        public ChatController(IHubContext<ChatHub, IChatClient> chatHub, ChatMessageRepository repo)
         {
             _chatHub = chatHub;
+            
+            _repo = repo;
 
         }
 
+        [HttpGet]
+        public IActionResult GetMessages()
+        {
+            var allMessages = _repo.GetMessages();
 
-        //[HttpGet]
-        //public IActionResult GetMessages()
-        //{
-        //    var allMessages = _repo.GetMessages();
-
-        //    return Ok(allMessages);
-        //}
+            return Ok(allMessages);
+        }
 
 
         [HttpPost]
         public async Task Post(ChatMessage message)
         {
-            //_repo.Add(message);
+            _repo.Add(message);
 
             await _chatHub.Clients.All.ReceiveMessage(message);
 

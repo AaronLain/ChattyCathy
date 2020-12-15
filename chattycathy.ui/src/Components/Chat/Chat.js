@@ -39,12 +39,13 @@ const Chatty = () => {
 
     const checkUid = () => {
         const rUser = `anon${+ (Math.ceil(Math.random()) * Date.now())}`
-        console.log(typeof rUser, 'ruser')
+
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
               return firebase.auth().currentUser.uid
-            } else {
-              return rUser
+            } else if (!user){
+              user = rUser
+              return user
             }
           });
     }
@@ -54,6 +55,7 @@ const Chatty = () => {
             userName: user,
             content: message,
             userId: checkUid(),
+            sentiment: 0,
             date: moment(),
         };
         console.log(latestChat.current, 'chat')
