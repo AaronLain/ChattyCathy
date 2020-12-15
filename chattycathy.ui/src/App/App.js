@@ -2,7 +2,7 @@ import React from 'react';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
-import Chat from '../Components/Chat/Chat';
+import Chatty from '../Components/Chat/Chat';
 import Home from '../Components/Home/Home';
 import Login from '../Components/Login/Login';
 import TheNavbar from '../Components/TheNavbar/TheNavbar';
@@ -41,7 +41,7 @@ class App extends React.Component {
             <Switch>
               <Route path='/home' component={Home} authed={authed} />
               <Route path='/login' component={Login} authed={authed} />
-              <Route path='/chat' component={Chat} authed={authed} />
+              <Route path='/chat' component={Chatty} authed={authed} />
               <Redirect from="*" to="/home"/>
             </Switch>
           </div>

@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ChattyCathy.Controllers
 {
-    [Route("users")]
+    [Route("chatroom/users")]
     [ApiController]
     public class UserController : ControllerBase
     {

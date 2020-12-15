@@ -69,7 +69,7 @@ const getUid = () => {
   return firebase.auth().currentUser.uid;
 };
 
-const getCustomers = () => new Promise((resolve, reject) => {
+const getUsers = () => new Promise((resolve, reject) => {
   axios.get(`${baseUrl}/users`)
       .then(response => resolve(response.data))
       .catch(err => reject(err));
@@ -81,5 +81,5 @@ export default {
   logoutUser, 
   registerUser,
   getUserInfo,
-  getCustomers
+  getUsers
 };

@@ -7,7 +7,7 @@ namespace ChattyCathy.Models
 {
     public class User
     {
-        public int id { get; set; }
+        public int UserId { get; set; }
 
         public string UserName { get; set; }
 

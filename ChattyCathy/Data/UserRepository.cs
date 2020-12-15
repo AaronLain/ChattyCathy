@@ -62,7 +62,7 @@ namespace ChattyCathy.Data
                                ([UserName] 
                                ,[ImageUrl]
                                ,[Sentiment]
-                               ,[FBuid]
+                               ,[FBuid])
                         Output inserted.id
                         VALUES
                                (@userName,@imageUrl,@sentiment,@fBuid)";
@@ -71,7 +71,7 @@ namespace ChattyCathy.Data
 
             var newId = db.ExecuteScalar<int>(sql, userToAdd);
 
-            userToAdd.id = newId;
+            userToAdd.UserId = newId;
 
         }
 
