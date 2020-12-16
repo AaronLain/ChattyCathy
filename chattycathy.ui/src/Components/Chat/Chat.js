@@ -75,9 +75,8 @@ const Chatty = () => {
 
     return (
         <div>
-            <ChatInput sendMessage={sendMessage} />
-            <hr />
             <ChatWindow chat={chat}/>
+            <ChatInput sendMessage={sendMessage} />
         </div>
     );
 };

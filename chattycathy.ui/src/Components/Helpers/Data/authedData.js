@@ -17,9 +17,7 @@ axios.interceptors.request.use(function (request) {
 });
 
 const checkUser = (user) => {
-  console.log(user, 'user')
   getUsers().then((response) => {
-    console.log(response)
     let eUser = response.filter(x => x.fBuid === user.FBuid)
     if(Object.keys(eUser).length === 0) {
        axios.post(`${baseUrl}/users`, user)
