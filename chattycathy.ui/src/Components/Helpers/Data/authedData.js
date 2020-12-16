@@ -2,6 +2,7 @@ import firebase from 'firebase';
 import axios from 'axios';
 import {baseUrl} from './constants.json';
 import { Redirect } from 'react-router-dom';
+import { useContext } from 'react';
 
 // intercept request and create token
 axios.interceptors.request.use(function (request) {
@@ -60,17 +61,6 @@ const registerUser = (user) => {
   });
 };
 
-const loginUser = (user) => {
-  //sub out whatever auth method firebase provides that you want to use.
-  return firebase.auth().signInWithEmailAndPassword(user.email, user.password).then(cred => {
-    //get token from firebase
-    cred.user.getIdToken()
-        //save the token to the session storage
-      .then(token => sessionStorage.setItem('token',token))
-      .catch(err => console.error('Log in Broke', err));
-  });
-};
-
 const getUserInfo = (userId) => new Promise((resolve, reject) => {
     axios.get(`${baseUrl}/users/${userId}`)
         .then(response => resolve(response.data))
@@ -94,9 +84,8 @@ const getUsers = () => new Promise((resolve, reject) => {
 
 export default {
   getUid, 
-  loginUser, 
   logoutUser, 
   registerUser,
   getUserInfo,
-  getUsers
+  getUsers,
 };

@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
+import authedData from '../../Helpers/Data/authedData'
 
 const ChatInput = (props) => {
     const [user, setUser] = useState('');
     const [message, setMessage] = useState('');
 
+    
     const onSubmit = (e) => {
         e.preventDefault();
 
         const isUserProvided = user && user !== '';
         const isMessageProvided = message && message !== '';
-
-        console.log(isMessageProvided,'provided?')
-        console.log(isUserProvided, 'user?')
 
         if (isUserProvided && isMessageProvided) {
             props.sendMessage(user, message);

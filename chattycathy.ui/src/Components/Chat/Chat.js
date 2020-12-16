@@ -12,6 +12,7 @@ import messageData from '../Helpers/Data/messageData';
 
 
 const Chatty = () => {
+    const [authed] = useState()
     const [ chat, setChat ] = useState([]);
     const latestChat = useRef(null);
 
@@ -75,7 +76,7 @@ const Chatty = () => {
 
     return (
         <div>
-            <ChatWindow chat={chat}/>
+            <ChatWindow chat={chat} authed={authed}/>
             <ChatInput sendMessage={sendMessage} />
         </div>
     );
