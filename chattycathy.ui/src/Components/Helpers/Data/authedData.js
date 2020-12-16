@@ -16,16 +16,19 @@ axios.interceptors.request.use(function (request) {
   return Promise.reject(err);
 });
 
-const checkForUser = (uid) => {
-    getUsers().then((response) => {
-      if (response.find(user => user.userId === uid)) {
-        return true;
-      } else {
-        return false;
-      }
-      
-    })
-}
+const checkUser = (user) => {
+  console.log(user, 'user')
+  getUsers().then((response) => {
+    console.log(response)
+    let eUser = response.filter(x => x.fBuid === user.FBuid)
+    if(Object.keys(eUser).length === 0) {
+       axios.post(`${baseUrl}/users`, user)
+    } else {
+      console.log('User exists!')
+    }
+  })
+  .catch(err => console.log(err))
+};
 
 const registerUser = (user) => {
 
@@ -49,7 +52,7 @@ const registerUser = (user) => {
       
       //save the user to the the api
       .then(() => {
-         axios.post(`${baseUrl}/users`, userInfo) 
+         checkUser(userInfo)
       })
 
 

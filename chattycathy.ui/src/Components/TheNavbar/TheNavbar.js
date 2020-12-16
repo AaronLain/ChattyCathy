@@ -34,9 +34,9 @@ class TheNavbar extends React.Component {
           if (user) {
             const uid = firebase.auth().currentUser.uid;
             authData.getUsers()
-              .then(response => response.filter(x => x.FBuid === uid))
-              .then(user => this.setState({id: user[0].userId}))
-              .catch(err => console.error('Could not filter customers', err))
+              .then(response => response.filter(x => x.fBuid === uid))
+              .then(user => user ? this.setState({id: user[0].userId}) : console.log('no user'))
+              .catch(err => console.error('Could not filter users', err))
           }
         })
       }
@@ -46,9 +46,8 @@ class TheNavbar extends React.Component {
       }
 
       loginClickEvent = (e) => {
-        const { user } = this.state;
         e.preventDefault();
-        authData.registerUser(user);
+        authData.registerUser();
       };
 
     render() {
