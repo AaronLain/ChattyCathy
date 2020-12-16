@@ -2,6 +2,7 @@ import firebase from 'firebase';
 import axios from 'axios';
 import {baseUrl} from './constants.json';
 import { Redirect } from 'react-router-dom';
+import { useContext } from 'react';
 
 // intercept request and create token
 axios.interceptors.request.use(function (request) {
@@ -16,16 +17,17 @@ axios.interceptors.request.use(function (request) {
   return Promise.reject(err);
 });
 
-const checkForUser = (uid) => {
-    getUsers().then((response) => {
-      if (response.find(user => user.userId === uid)) {
-        return true;
-      } else {
-        return false;
-      }
-      
-    })
-}
+const checkUser = (user) => {
+  getUsers().then((response) => {
+    let eUser = response.filter(x => x.fBuid === user.FBuid)
+    if(Object.keys(eUser).length === 0) {
+       axios.post(`${baseUrl}/users`, user)
+    } else {
+      console.log('User exists!')
+    }
+  })
+  .catch(err => console.log(err))
+};
 
 const registerUser = (user) => {
 
@@ -49,24 +51,13 @@ const registerUser = (user) => {
       
       //save the user to the the api
       .then(() => {
-         axios.post(`${baseUrl}/users`, userInfo) 
+         checkUser(userInfo)
       })
 
 
         
       .catch(err => console.error('Post Customer broke', err));
       //console.log(typeof checkForUser(userInfo(FBuid)))
-  });
-};
-
-const loginUser = (user) => {
-  //sub out whatever auth method firebase provides that you want to use.
-  return firebase.auth().signInWithEmailAndPassword(user.email, user.password).then(cred => {
-    //get token from firebase
-    cred.user.getIdToken()
-        //save the token to the session storage
-      .then(token => sessionStorage.setItem('token',token))
-      .catch(err => console.error('Log in Broke', err));
   });
 };
 
@@ -93,9 +84,8 @@ const getUsers = () => new Promise((resolve, reject) => {
 
 export default {
   getUid, 
-  loginUser, 
   logoutUser, 
   registerUser,
   getUserInfo,
-  getUsers
+  getUsers,
 };
