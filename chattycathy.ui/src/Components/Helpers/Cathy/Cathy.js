@@ -7,7 +7,7 @@ const cathySummoner = (message) => {
     if(message.includes('@cathy')) {
         setTimeout(() => {
             cathyMessage()
-        }, 3000);
+        }, 2600);
         
     }
 }
