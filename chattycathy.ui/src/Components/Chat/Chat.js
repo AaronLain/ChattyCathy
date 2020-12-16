@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import firebase from 'firebase';
 import moment from 'moment';
-import axios from 'axios';
+
 import { HubConnectionBuilder } from '@microsoft/signalr';
-import {baseUrl} from '../Helpers/Data/constants.json'
+import {baseUrl} from '../Helpers/Data/constants.json';
 import ChatWindow from './ChatWindow/ChatWindow';
 import ChatInput from './ChatInput/ChatInput';
 
+import botData from '../Helpers/Cathy/Cathy';
 import messageData from '../Helpers/Data/messageData';
 
 
@@ -51,15 +52,14 @@ const Chatty = () => {
     }
 
     const sendMessage = async (user, message) => {
+        
         const chatMessage = {
             userName: user,
             content: message,
             userId: checkUid(),
             sentiment: 0,
             date: moment(),
-        };
-        console.log(latestChat.current, 'chat')
-        console.log(chatMessage, 'chatMessage')
+        }
    
         try {
             await messageData.postMessage(chatMessage);
@@ -67,6 +67,9 @@ const Chatty = () => {
         catch(err) {
             console.log(err);
         }
+
+        const parsedMessage = messageData.parseMessage(chatMessage.content);
+        botData.cathySummoner(parsedMessage);
 
 }
 

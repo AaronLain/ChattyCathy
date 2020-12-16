@@ -9,5 +9,6 @@ const checkMessageId = (messageId) => new Promise((resolve, reject) => {
 
     const postMessage = (chatMessage) => axios.post(`${baseUrl}/messages`, chatMessage);
 
+    const parseMessage = (message) => message.split(" ")
 
-export default { checkMessageId, postMessage };
+export default { checkMessageId, postMessage, parseMessage };
