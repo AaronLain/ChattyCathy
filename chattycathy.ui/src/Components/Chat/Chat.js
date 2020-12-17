@@ -54,7 +54,7 @@ const Chatty = () => {
             userName: user,
             content: message,
             fBuid: checkUid(),
-            sentiment: 0,
+            sentiment: botData.sentimentAnalyzer(message),
             date: moment(),
         }
         console.log(chatMessage, 'chatMessage')
@@ -67,6 +67,7 @@ const Chatty = () => {
 
         const parsedMessage = messageData.parseMessage(chatMessage.content);
 
+        //triggers cathy logic
         botData.cathySummoner(chatMessage.userName, parsedMessage);
 
 }

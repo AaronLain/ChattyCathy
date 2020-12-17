@@ -25,6 +25,9 @@ const greetingCheck = (user, message) => {
     }
 }
 
+const sentimentAnalyzer = async (message) => {
+    ///TBD 
+}
 
 const cathyMessage = async (user, message) => {
     const chatMessage = {
