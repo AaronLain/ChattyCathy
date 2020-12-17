@@ -1,27 +1,35 @@
 import messageData from '../Data/messageData';
 import moment from 'moment';
 
-const responses = ['Hello?', "Isn't that nice.", 'Oh gee whiz!', 'I dunno about that!', 'Aw shucks.']
+const responses = messageData.getResponses()
 
-const cathySummoner = (message) => {
+const greetings = ['hello', 'hi', 'hey', 'greetings', 'salutations']
+
+const cathySummoner = (user, message) => {
     if(message.includes('@cathy')) {
         setTimeout(() => {
-            cathyMessage()
+            cathyMessage(user, message)
         }, 2600);
         
     }
 }
 
-const responseSelector = () => {
-    const rand = Math.ceil(Math.random() * 4);
-    return `${responses[rand]}`
+// checks if the message includes any greeting triggers,
+// if not, returns random response
+const greetingCheck = (user, message) => {
+    const rand = Math.floor(Math.random() * (responses.length));
+    if (greetings.some(g => message.includes(g))) {
+        return `Sup ${user}`;
+    } else {
+        return `${responses[rand]}`
+    }
 }
 
 
-const cathyMessage = async () => {
+const cathyMessage = async (user, message) => {
     const chatMessage = {
         userName: 'Cathy',
-        content: responseSelector(),
+        content: greetingCheck(user, message),
         userId: 666,
         sentiment: 0,
         date: moment(),
