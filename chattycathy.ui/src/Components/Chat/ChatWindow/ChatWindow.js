@@ -8,9 +8,8 @@ const ChatWindow = (props) => {
             key={Date.now() * Math.random()}
             user={m.userName}
             message={m.content}/>);
-        console.log(props.chat, 'props')
-    return(
-        
+
+    return(     
         <div className="ChatWindow">
         <div className="row">
           <div className="col">

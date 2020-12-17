@@ -14,10 +14,10 @@ const cathySummoner = (user, message) => {
     }
 }
 
+// checks if the message includes any greeting triggers,
+// if not, returns random response
 const greetingCheck = (user, message) => {
     const rand = Math.floor(Math.random() * (responses.length));
-    // checks if the message includes any greeting triggers,
-    // if not, returns random response
     if (greetings.some(g => message.includes(g))) {
         return `Sup ${user}`;
     } else {

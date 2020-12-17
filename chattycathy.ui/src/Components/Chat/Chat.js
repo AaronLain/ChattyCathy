@@ -40,28 +40,24 @@ const Chatty = () => {
     
 
     const checkUid = () => {
-        const rUser = `anon${+ (Math.ceil(Math.random()) * Date.now())}`
-
-        firebase.auth().onAuthStateChanged((user) => {
-            if (user) {
-              return firebase.auth().currentUser.uid
-            } else if (!user){
-              user = rUser
-              return user
-            }
-          });
+        const rUser = `anon${(Math.ceil(Math.random()) * 1345436990)}`
+        let userId = firebase.auth().currentUser;
+        if (userId) {
+            return firebase.auth().currentUser.uid
+        } else {
+            return rUser
+        }    
     }
 
     const sendMessage = async (user, message) => {
-        
         const chatMessage = {
             userName: user,
             content: message,
-            userId: checkUid(),
+            fBuid: checkUid(),
             sentiment: 0,
             date: moment(),
         }
-   
+        console.log(chatMessage, 'chatMessage')
         try {
             await messageData.postMessage(chatMessage);
         }
@@ -70,6 +66,7 @@ const Chatty = () => {
         }
 
         const parsedMessage = messageData.parseMessage(chatMessage.content);
+
         botData.cathySummoner(chatMessage.userName, parsedMessage);
 
 }
