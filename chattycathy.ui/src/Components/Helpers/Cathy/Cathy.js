@@ -1,11 +1,12 @@
 import messageData from '../Data/messageData';
 import moment from 'moment';
 
-const responses = ['Hello', "Isn't that nice.", 'Oh gee whiz!', 'I dunno about that!', 'Aw shucks.']
+const responses = messageData.getResponses()
 
 const greetings = ['hello', 'hi', 'hey', 'greetings', 'salutations']
 
 const cathySummoner = (user, message) => {
+    console.log(message, 'message')
     if(message.includes('@cathy')) {
         setTimeout(() => {
             cathyMessage(user, message)
@@ -15,13 +16,13 @@ const cathySummoner = (user, message) => {
 }
 
 const responseSelector = () => {
-    const rand = Math.ceil(Math.random() * 4);
+    const rand = Math.ceil(Math.random() * 6);
     return `${responses[rand]}`
 }
 
 const greetingCheck = (user, message) => {
     if (greetings.some(g => message.includes(g))) {
-        return `${responses[0]} ${user}`
+        return `${responses[0]} ${user}`;
     } else {
         responseSelector()
     }
@@ -29,9 +30,11 @@ const greetingCheck = (user, message) => {
 
 
 const cathyMessage = async (user, message) => {
+    // wait for greeting check before posting to server to avoid 500 error
+    const content = await greetingCheck(user, message)
     const chatMessage = {
         userName: 'Cathy',
-        content: greetingCheck(user, message),
+        content: content,
         userId: 666,
         sentiment: 0,
         date: moment(),

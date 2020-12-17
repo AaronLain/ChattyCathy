@@ -7,8 +7,12 @@ const checkMessageId = (messageId) => new Promise((resolve, reject) => {
         .catch(error => console.error('No customer exists with this login', error));
 });
 
-    const postMessage = (chatMessage) => axios.post(`${baseUrl}/messages`, chatMessage);
+const postMessage = (chatMessage) => axios.post(`${baseUrl}/messages`, chatMessage);
 
-    const parseMessage = (message) => message.toLowerCase().split(" ")
+const parseMessage = (message) => message.toLowerCase().split(" ")
 
-export default { checkMessageId, postMessage, parseMessage };
+const responses =  ['Hello', "Isn't that nice.", 'Oh gee whiz!', 'I dunno about that!', 'Aw shucks.', 'You rang?', 'What do you want?']
+
+const getResponses = () => responses;
+
+export default { checkMessageId, postMessage, parseMessage, getResponses };
