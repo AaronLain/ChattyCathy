@@ -11,13 +11,13 @@ const ChatWindow = (props) => {
         console.log(props.chat, 'props')
     return(
         
-        <div className="SinglePainting">
-        <div className="row my-4">
-          <div className="col-sm d-flex">
-            <div className="card m-3" 
-             style={{backgroundColor: '#99E6FF', borderRadius: '1.5rem'}}>
+        <div className="ChatWindow">
+        <div className="row">
+          <div className="col">
+            <div className="card" 
+             style={{backgroundColor: '#d4e4ff', borderRadius: '.5rem'}}>
               <div className="card-title">
-                <h4 className="title mt-3 heading">Chatroom</h4>
+                <h4 className="title mt-3 heading text-center">Chat your heart out!</h4>
               </div>
                 <div className="card-body text-center">
                 {chat}

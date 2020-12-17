@@ -75,9 +75,12 @@ const Chatty = () => {
 }
 
     return (
-        <div>
-            <ChatWindow chat={chat} authed={authed}/>
-            <ChatInput sendMessage={sendMessage} />
+        <div className="col w-100 mx-auto" style={{margin: '1rem'}}>
+
+                <ChatWindow chat={chat} authed={authed}/>
+                <ChatInput sendMessage={sendMessage} />
+          
+            
         </div>
     );
 };
