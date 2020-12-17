@@ -1,12 +1,14 @@
 import messageData from '../Data/messageData';
 import moment from 'moment';
 
-const responses = ['Hello?', "Isn't that nice.", 'Oh gee whiz!', 'I dunno about that!', 'Aw shucks.']
+const responses = ['Hello', "Isn't that nice.", 'Oh gee whiz!', 'I dunno about that!', 'Aw shucks.']
 
-const cathySummoner = (message) => {
+const greetings = ['hello', 'hi', 'hey', 'greetings', 'salutations']
+
+const cathySummoner = (user, message) => {
     if(message.includes('@cathy')) {
         setTimeout(() => {
-            cathyMessage()
+            cathyMessage(user, message)
         }, 2600);
         
     }
@@ -17,11 +19,19 @@ const responseSelector = () => {
     return `${responses[rand]}`
 }
 
+const greetingCheck = (user, message) => {
+    if (greetings.some(g => message.includes(g))) {
+        return `${responses[0]} ${user}`
+    } else {
+        responseSelector()
+    }
+}
 
-const cathyMessage = async () => {
+
+const cathyMessage = async (user, message) => {
     const chatMessage = {
         userName: 'Cathy',
-        content: responseSelector(),
+        content: greetingCheck(user, message),
         userId: 666,
         sentiment: 0,
         date: moment(),

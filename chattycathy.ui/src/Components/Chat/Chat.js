@@ -70,7 +70,7 @@ const Chatty = () => {
         }
 
         const parsedMessage = messageData.parseMessage(chatMessage.content);
-        botData.cathySummoner(parsedMessage);
+        botData.cathySummoner(chatMessage.userName, parsedMessage);
 
 }
 
