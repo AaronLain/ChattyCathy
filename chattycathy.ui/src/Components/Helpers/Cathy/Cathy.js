@@ -6,7 +6,6 @@ const responses = messageData.getResponses()
 const greetings = ['hello', 'hi', 'hey', 'greetings', 'salutations']
 
 const cathySummoner = (user, message) => {
-    console.log(message, 'message')
     if(message.includes('@cathy')) {
         setTimeout(() => {
             cathyMessage(user, message)
@@ -15,26 +14,22 @@ const cathySummoner = (user, message) => {
     }
 }
 
-const responseSelector = () => {
-    const rand = Math.ceil(Math.random() * 6);
-    return `${responses[rand]}`
-}
-
 const greetingCheck = (user, message) => {
+    const rand = Math.floor(Math.random() * (responses.length));
+    // checks if the message includes any greeting triggers,
+    // if not, returns random response
     if (greetings.some(g => message.includes(g))) {
-        return `${responses[0]} ${user}`;
+        return `Sup ${user}`;
     } else {
-        responseSelector()
+        return `${responses[rand]}`
     }
 }
 
 
 const cathyMessage = async (user, message) => {
-    // wait for greeting check before posting to server to avoid 500 error
-    const content = await greetingCheck(user, message)
     const chatMessage = {
         userName: 'Cathy',
-        content: content,
+        content: greetingCheck(user, message),
         userId: 666,
         sentiment: 0,
         date: moment(),
