@@ -75,14 +75,11 @@ const Chatty = () => {
 }
 
     return (
-        <div className="col w-100 mx-auto">
-            <div className="card">
-                <div className="card-body mx-auto">
+        <div className="col w-100 mx-auto" style={{margin: '1rem'}}>
+
                 <ChatWindow chat={chat} authed={authed}/>
                 <ChatInput sendMessage={sendMessage} />
-                </div>
-           
-            </div>
+          
             
         </div>
     );
