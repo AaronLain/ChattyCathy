@@ -29,7 +29,7 @@ const ChatInput = (props) => {
     }
 
     return (
-        <form 
+        <form class="form-inline"
             onSubmit={onSubmit}>
             <label htmlFor="user">User:</label>
             <br />
@@ -39,16 +39,21 @@ const ChatInput = (props) => {
                 value={user}
                 onChange={onUserUpdate} />
             <br/>
+            <div className="form-group">
             <label htmlFor="message">Message:</label>
             <br />
             <input 
+                
                 type="text"
                 id="message"
                 name="message" 
                 value={message}
-                onChange={onMessageUpdate} />
+                onChange={onMessageUpdate}
+                rows="3" />
             <br/><br/>
             <button>Submit</button>
+            </div>
+            
         </form>
     )
 };
