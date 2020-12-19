@@ -1,6 +1,6 @@
 import messageData from '../Data/messageData';
 import moment from 'moment';
-import { ConsoleLogger } from '@microsoft/signalr/dist/esm/Utils';
+
 
 const responses = messageData.getResponses()
 
@@ -9,8 +9,6 @@ const greetings = ['hello', 'hi', 'hey', 'greetings', 'salutations']
 const secretFetch = () => messageData.getSecretById(2).then(result => {
     return result
 })
-
-
 
 const secretTriggers = ['tell me a secret', 'secret', 'secrets']
 
@@ -39,7 +37,7 @@ const greetingCheck = (user, message) => {
     })
 }
 
-const sentimentAnalyzer = async (message) => {
+const sentimentAnalyzer = (message) => {
     ///TBD 
 }
 

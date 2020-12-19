@@ -1,15 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.ML;
+using ChattyCathy.DataModels;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Owin;
 using ChattyCathy.Hubs;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ChattyCathy.Data;
 
@@ -32,7 +31,8 @@ namespace ChattyCathy
             services.AddTransient<ChatMessageRepository>();
             services.AddTransient<UserRepository>();
             services.AddTransient<SecretsRepository>();
-
+            services.AddPredictionEnginePool<SentimentData, SentimentPrediction>()
+                .FromFile(modelName: "SentimentAnalysisModel", filePath: "MLModels/model.zip", watchForChanges: true);
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
