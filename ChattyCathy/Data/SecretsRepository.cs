@@ -15,17 +15,27 @@ namespace ChattyCathy.Data
             _connectionString = configuration.GetConnectionString("ChattyCathy");
         }
 
-        public User GetSecretrById(int secretId)
+        public List<Secret> GetSecrets()
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var secrets = db.Query<Secret>(@"select *
+                                                 from Secrets");
+
+            return secrets.ToList();
+        }
+
+        public Secret GetSecretById(int secretId)
         {
             using var db = new SqlConnection(_connectionString);
 
             var query = @"select *
                           from Secrets
-                          where id = @sid";
+                          where SecretId = @sid";
 
             var parameters = new { sid = secretId };
 
-            var secret = db.QueryFirstOrDefault<User>(query, parameters);
+            var secret = db.QueryFirstOrDefault<Secret>(query, parameters);
 
             return secret;
         }

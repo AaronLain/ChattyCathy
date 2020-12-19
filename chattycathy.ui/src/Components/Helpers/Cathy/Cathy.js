@@ -5,6 +5,8 @@ const responses = messageData.getResponses()
 
 const greetings = ['hello', 'hi', 'hey', 'greetings', 'salutations']
 
+const secretTriggers = ['tell me a secret', 'secret', 'secrets']
+
 const cathySummoner = (user, message) => {
     if(message.includes('@cathy')) {
         setTimeout(() => {
@@ -20,6 +22,8 @@ const greetingCheck = (user, message) => {
     const rand = Math.floor(Math.random() * (responses.length));
     if (greetings.some(g => message.includes(g))) {
         return `Sup ${user}`;
+    } else if (secretTriggers.some(s => message.includes(s))) {
+        return 'Secrets secrets are no fun'
     } else {
         return `${responses[rand]}`
     }
