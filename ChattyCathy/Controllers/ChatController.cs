@@ -36,7 +36,7 @@ namespace ChattyCathy.Controllers
         [HttpPost]
         public async Task Post(ChatMessage message)
         {
-            _repo.RemoveStopWords(message.Content);
+            message.Sentiment = _repo.SentimentScore(message.Content);
 
             _repo.Add(message);
 

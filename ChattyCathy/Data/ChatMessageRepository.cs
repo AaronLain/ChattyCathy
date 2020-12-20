@@ -53,13 +53,57 @@ namespace ChattyCathy.Data
 
             string[] output = input.Except(stopWords).ToArray();
 
-            string test = string.Join("", output);
-
-            Console.WriteLine($"{test}");
-
             return output;
         }
 
+        public int PositiveWordScore(string[] input)
+        {
+            Int16 count = 0;
+
+            string[] positiveWords = System.IO.File.ReadAllLines(@"Data/positive-words.txt");
+
+            foreach (string word in positiveWords)
+            {
+                if (input.Contains(word))
+                {
+                    count++;
+                }
+            }
+
+            return count;
+        }
+
+        public int NegativeWordScore(string[] input)
+        {
+            Int16 count = 0;
+
+            string[] negativeWords = System.IO.File.ReadAllLines(@"Data/negative-words.txt");
+
+            foreach (string word in negativeWords)
+            {
+                if (input.Contains(word))
+                {
+                    count++;
+                }
+            }
+
+            return count;
+        }
+
+        public int SentimentScore(string input)
+        {
+            string[] noStopWords = RemoveStopWords(input);
+
+            int positive = PositiveWordScore(noStopWords);
+
+            int negative = NegativeWordScore(noStopWords);
+
+            int output = positive - negative;
+
+            Console.WriteLine($"{output}");
+
+            return output;
+        }
 
     }
 }
