@@ -19,7 +19,7 @@ namespace ChattyCathy.Data
             using var db = new SqlConnection(_connectionString);
 
             var burns = db.Query<SickBurn>(@"select *
-                                         from SickBurn");
+                                           from SickBurn");
 
             return burns.ToList();
         }
