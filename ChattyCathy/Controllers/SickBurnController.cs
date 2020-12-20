@@ -29,7 +29,7 @@ namespace ChattyCathy.Controllers
         {
             var content = _repo.GetSickBurnContentById(id);
 
-            if (content == null) return NotFound("No user with that Id was found");
+            if (content == null) return NotFound("No burn with that Id was found");
 
             return Ok(content);
         }

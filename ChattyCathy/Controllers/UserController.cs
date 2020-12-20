@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using ChattyCathy.Data;
+﻿using ChattyCathy.Data;
 using ChattyCathy.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -27,8 +23,6 @@ namespace ChattyCathy.Controllers
 
             return Ok(allUsers);
         }
-
-
 
         [HttpGet("{id}")]
         public IActionResult GetUserById(int id)

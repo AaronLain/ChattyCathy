@@ -29,6 +29,7 @@ namespace ChattyCathy
             services.AddTransient<ChatMessageRepository>();
             services.AddTransient<UserRepository>();
             services.AddTransient<SecretsRepository>();
+            services.AddTransient<SickBurnRepository>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
