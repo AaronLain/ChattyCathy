@@ -36,6 +36,8 @@ namespace ChattyCathy.Controllers
         [HttpPost]
         public async Task Post(ChatMessage message)
         {
+            _repo.RemoveStopWords(message.Content);
+
             _repo.Add(message);
 
             await _chatHub.Clients.All.ReceiveMessage(message);

@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System;
 using Dapper;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
@@ -41,7 +43,23 @@ namespace ChattyCathy.Data
             var newId = db.ExecuteScalar<int>(sql, messageToAdd);
 
             messageToAdd.MessageId = newId;
-
         }
+
+        public string[] RemoveStopWords(string message)
+        {
+            string[] stopWords = System.IO.File.ReadAllLines(@"Data/stopwords.txt");
+
+            string[] input = message.Split(' ');
+
+            string[] output = input.Except(stopWords).ToArray();
+
+            string test = string.Join("", output);
+
+            Console.WriteLine($"{test}");
+
+            return output;
+        }
+
+
     }
 }
