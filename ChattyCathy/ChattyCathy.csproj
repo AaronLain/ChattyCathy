@@ -12,15 +12,5 @@
     <PackageReference Include="Microsoft.Owin.Cors" Version="4.1.1" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="MLModels\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="MLModels\model.zip">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 
 </Project>

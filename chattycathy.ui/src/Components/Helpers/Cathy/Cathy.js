@@ -4,6 +4,8 @@ import moment from 'moment';
 
 const responses = messageData.getResponses()
 
+const secrets = messageData.getSecrets()
+
 const greetings = ['hello', 'hi', 'hey', 'greetings', 'salutations']
 
 const secretFetch = () => messageData.getSecretById(2).then(result => {
@@ -16,6 +18,7 @@ const cathySummoner = (user, message) => {
     if(message.includes('@cathy')) {
         setTimeout(() => {
             cathyMessage(user, message)
+            console.log(secrets)
         }, 2600);
         
     }
@@ -23,7 +26,7 @@ const cathySummoner = (user, message) => {
 
 // checks if the message includes any greeting triggers,
 // if not, returns random response
-const greetingCheck = (user, message) => {
+const greetingCheck = async (user, message) => {
     const rand = Math.floor(Math.random() * (responses.length));
     return secretFetch().then((secret) => {
         console.log(typeof secret, 'secret')
