@@ -21,6 +21,7 @@ const cathySummoner = (user, message) => {
     }
 }
 
+
 // checks if the message includes any greeting triggers,
 // if not, returns random response
 const greetingCheck = async (user, message) => {

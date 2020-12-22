@@ -34,6 +34,17 @@ namespace ChattyCathy.Controllers
             return Ok(user);
         }
 
+        //[HttpPut("{id}")]
+        //public IActionResult UpdateUserSentiment(int id)
+        //{
+        //    //var sentiment = _repo.UserSentimentSetter();
+
+        //    var updatedUser = _repo.Update(id, sentiment);
+
+        //    return Ok(updatedUser);
+        //}
+
+
         [HttpPost]
         public IActionResult CreateUser(User user)
         {

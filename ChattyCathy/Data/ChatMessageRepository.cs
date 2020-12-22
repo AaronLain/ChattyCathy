@@ -100,8 +100,6 @@ namespace ChattyCathy.Data
 
             int output = positive - negative;
 
-            Console.WriteLine($"{output}");
-
             return output;
         }
 
