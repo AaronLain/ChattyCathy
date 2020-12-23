@@ -42,25 +42,25 @@ namespace ChattyCathy.Data
             return user;
         }
 
-        public User Update(int userId, int sentiment)
-        {
-            var sql = @"UPDATE [dbo].[Users]
-                          SET [Sentiment] = @sentiment
-                        output inserted.*
-                        WHERE userId = @userId";
+        //public User Update(int userId, int sentiment)
+        //{
+        //    var sql = @"UPDATE [dbo].[Users]
+        //                SET [Sentiment] = @sentiment
+        //                output inserted.*
+        //                WHERE userId = @userId";
 
-            using var db = new SqlConnection(_connectionString);
+        //    using var db = new SqlConnection(_connectionString);
 
-            var parameters = new
-            {
-                Seniment = sentiment,
-                UserId = userId
-            };
+        //    var parameters = new
+        //    {
+        //        Seniment = sentiment,
+        //        UserId = userId
+        //    };
 
-            var updatedCustomer = db.QueryFirstOrDefault<User>(sql, parameters);
+        //    var updatedCustomer = db.QueryFirstOrDefault<User>(sql, parameters);
 
-            return updatedCustomer;
-        }
+        //    return updatedCustomer;
+        //}
 
         public User GetUserByFBuid(int fbUid)
         {
@@ -77,19 +77,21 @@ namespace ChattyCathy.Data
             return user;
         }
 
-        public int GetUserSentimentScoreByUserId(int userId)
+        public int GetUserSentimentScoreByUserId(string userId)
         {
             using var db = new SqlConnection(_connectionString);
 
-            var query = @"select Sentiment
+            var query = @"select SUM(Sentiment) as SentimentSum
                           from Messages
                           where UserId = @uid";
 
             var parameters = new { uid = userId };
 
-            var user = db.QueryFirstOrDefault<User>(query, parameters);
+            var sentimentSum = db.QueryFirstOrDefault<int>(query, parameters);
 
-            return user.Sentiment;
+            Console.WriteLine($"{sentimentSum}, sentiment sum");
+
+            return sentimentSum;
 
         } 
 

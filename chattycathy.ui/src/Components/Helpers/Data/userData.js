@@ -1,5 +1,5 @@
 import axios from "axios";
-import {baseUrl} from "../constants.json"
+import {baseUrl} from "./constants.json"
 
 const checkCustomerUid = (uid) => new Promise((resolve, reject) => {
     axios.get(`${baseUrl}/customers/${uid}`)
@@ -21,4 +21,6 @@ const createNewCustomer = (uid, userInput) => new Promise((resolve, reject) => {
 
 });
 
-export default { checkCustomerUid, createNewCustomer };
+const updateUserSentiment = (userId, sentiment) => axios.put(`${baseUrl}/users/${userId}`, sentiment);
+
+export default { checkCustomerUid, createNewCustomer, updateUserSentiment };
