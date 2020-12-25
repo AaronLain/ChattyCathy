@@ -53,7 +53,7 @@ const Chatty = () => {
         const chatMessage = {
             userName: user,
             content: message,
-            fBuid: checkUid(),
+            userId: checkUid(),
             sentiment: 0,
             date: moment(),
         }

@@ -1,4 +1,5 @@
 import messageData from '../Data/messageData';
+import userData from '../Data/userData';
 import moment from 'moment';
 
 
@@ -16,10 +17,12 @@ const cathySummoner = (user, message) => {
     if(message.includes('@cathy')) {
         setTimeout(() => {
             cathyMessage(user, message)
+            userData.updateUserSentiment(1007, 0)
         }, 2600);
         
     }
 }
+
 
 // checks if the message includes any greeting triggers,
 // if not, returns random response
@@ -45,7 +48,7 @@ const cathyMessage = async (user, message) => {
         const chatMessage = {
             userName: 'Cathy',
             content: response,
-            userId: 666,
+            userId: "1010010100",
             sentiment: 0,
             date: moment(),
         }

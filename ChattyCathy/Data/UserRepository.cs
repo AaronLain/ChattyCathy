@@ -5,6 +5,7 @@ using Dapper;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using ChattyCathy.Models;
+using ChattyCathy.Data;
 using System.Threading.Tasks;
 
 namespace ChattyCathy.Data
@@ -41,6 +42,26 @@ namespace ChattyCathy.Data
             return user;
         }
 
+        public User Update(int userId, int sentiment)
+        {
+            var sql = @"UPDATE [dbo].[Users]
+                        SET [Sentiment] = @sentiment
+                        output inserted.*
+                        WHERE UserId = @userId";
+
+            using var db = new SqlConnection(_connectionString);
+
+            var parameters = new
+            {
+                Sentiment = sentiment,
+                UserId = userId
+            };
+
+            var updatedCustomer = db.QueryFirstOrDefault<User>(sql, parameters);
+
+            return updatedCustomer;
+        }
+
         public User GetUserByFBuid(int fbUid)
         {
             using var db = new SqlConnection(_connectionString);
@@ -55,6 +76,24 @@ namespace ChattyCathy.Data
 
             return user;
         }
+
+        public int GetUserSentimentScoreByUserId(string userId)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var query = @"select SUM(Sentiment) as SentimentSum
+                          from Messages
+                          where UserId = @uid";
+
+            var parameters = new { uid = userId };
+
+            var sentimentSum = db.QueryFirstOrDefault<int>(query, parameters);
+
+            Console.WriteLine($"{sentimentSum}, sentiment sum");
+
+            return sentimentSum;
+
+        } 
 
         public void Add(User userToAdd)
         {
@@ -74,6 +113,11 @@ namespace ChattyCathy.Data
             userToAdd.UserId = newId;
 
         }
+
+        //public int UserSentimentSetter()
+        //{
+
+        //}
 
     }
 }
