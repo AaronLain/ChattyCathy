@@ -32,7 +32,7 @@ namespace ChattyCathy.Data
 
             var query = @"select *
                           from Users
-                          where id = @uid";
+                          where UserId = @uid";
 
             var parameters = new { uid = userId };
 
@@ -62,8 +62,8 @@ namespace ChattyCathy.Data
                                ([UserName] 
                                ,[ImageUrl]
                                ,[Sentiment]
-                               ,[FBuid]
-                        Output inserted.id
+                               ,[FBuid])
+                        Output inserted.UserId
                         VALUES
                                (@userName,@imageUrl,@sentiment,@fBuid)";
 
@@ -71,7 +71,7 @@ namespace ChattyCathy.Data
 
             var newId = db.ExecuteScalar<int>(sql, userToAdd);
 
-            userToAdd.id = newId;
+            userToAdd.UserId = newId;
 
         }
 
