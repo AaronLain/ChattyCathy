@@ -13,24 +13,36 @@ const secretFetch = () => messageData.getSecretById(2).then(result => {
 
 const secretTriggers = ['tell me a secret', 'secret', 'secrets']
 
-const cathySummoner = (user, message) => {
-    if(message.includes('@cathy')) {
-        setTimeout(() => {
-            cathyMessage(user, message)
-            userData.updateUserSentiment(1007, 0)
-        }, 2600);
-        
-    }
+const getUserIdByFBuid = (fBuid) => new Promise ((resolve, reject) => {
+    userData.getUsers()
+        .then(response => resolve(response.filter(user => user.fBuid === fBuid)))
+        .catch(err => reject(err))
+})
+
+
+const cathySummoner = (messageObj, parsedMessage) => {
+    console.log(messageObj.userId, 'userId')
+    getUserIdByFBuid(messageObj.userId)
+        .then(response => {
+            console.log(response[0].fBuid, 'fbuid')
+            if(parsedMessage.includes('@cathy')) {
+                setTimeout(() => {
+                    cathyMessage(response[0].userName, parsedMessage)
+                    userData.updateUserSentiment(response[0].userId, 0)
+                }, 2600);
+            }
+        })  
+
 }
 
 
 // checks if the message includes any greeting triggers,
 // if not, returns random response
-const greetingCheck = async (user, message) => {
+const greetingCheck = async (userName, message) => {
     const rand = Math.floor(Math.random() * (responses.length));
     return secretFetch().then((secret) => {
         if (greetings.some(g => message.includes(g))) {
-            return `Sup ${user}`;
+            return `Sup ${userName}`;
         } else if (secretTriggers.some(s => message.includes(s))) {
             return secret;
         } else {

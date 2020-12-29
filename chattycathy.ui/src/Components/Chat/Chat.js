@@ -68,7 +68,7 @@ const Chatty = () => {
         const parsedMessage = messageData.parseMessage(chatMessage.content);
 
         //triggers cathy logic
-        botData.cathySummoner(chatMessage.userName, parsedMessage);
+        botData.cathySummoner(chatMessage, parsedMessage);
 
 }
 
