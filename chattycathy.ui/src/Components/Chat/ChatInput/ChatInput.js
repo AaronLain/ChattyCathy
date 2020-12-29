@@ -39,7 +39,7 @@ const ChatInput = (props) => {
     return (
         <div className="card text-center">
             <div className="card-body mx-auto">
-            <form class="form-inline"
+            <form classnaME="form-inline"
             onSubmit={onSubmit}>
             <label style={{margin: '1rem'}} htmlFor="user">User:</label>
             <br />
@@ -62,7 +62,7 @@ const ChatInput = (props) => {
                 rows="3" />
             <br/><br/>
             </div>
-            <button className="btn btn-success btn-lg">Submit</button>
+            <button className="btn btn-success btn-lg">Submit!</button>
             </form>
 
             
