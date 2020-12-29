@@ -21,10 +21,8 @@ const getUserIdByFBuid = (fBuid) => new Promise ((resolve, reject) => {
 
 
 const cathySummoner = (messageObj, parsedMessage) => {
-    console.log(messageObj.userId, 'userId')
     getUserIdByFBuid(messageObj.userId)
         .then(response => {
-            console.log(response[0].fBuid, 'fbuid')
             if(parsedMessage.includes('@cathy')) {
                 setTimeout(() => {
                     cathyMessage(response[0].userName, parsedMessage)
@@ -36,7 +34,7 @@ const cathySummoner = (messageObj, parsedMessage) => {
 }
 
 
-// checks if the message includes any greeting triggers,
+// checks if the message includes any greeting triggers or secret triggers
 // if not, returns random response
 const greetingCheck = async (userName, message) => {
     const rand = Math.floor(Math.random() * (responses.length));
