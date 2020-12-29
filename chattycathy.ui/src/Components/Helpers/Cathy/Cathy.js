@@ -30,27 +30,27 @@ const cathySummoner = (messageObj, parsedMessage) => {
                 }, 2600);
             }
         })  
+    }
 
+// randomizes Cathy's replies based on the length of whatever collection is triggered
+// so we don't have to make them all the same legnth
+const replyRandomizer = (messageArr) => {
+    const rand = Math.floor(Math.random() * (messageArr.length));
+    if (rand !== 0) return messageArr[rand];
 }
-
 
 // checks if the message includes any greeting triggers or secret triggers
 // if not, returns random response
 const greetingCheck = async (userName, message) => {
-    const rand = Math.floor(Math.random() * (responses.length));
     return secretFetch().then((secret) => {
         if (greetings.some(g => message.includes(g))) {
-            return `Sup ${userName}`;
+            return `${replyRandomizer(greetings)} ${userName}`;
         } else if (secretTriggers.some(s => message.includes(s))) {
             return secret;
         } else {
-            return `${responses[rand]}`
+            return `${replyRandomizer(responses)}`
         }
     })
-}
-
-const sentimentAnalyzer = (message) => {
-    ///TBD 
 }
 
 const cathyMessage = async (user, message) => {
