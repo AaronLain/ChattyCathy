@@ -89,8 +89,6 @@ namespace ChattyCathy.Data
 
             var sentimentSum = db.QueryFirstOrDefault<int>(query, parameters);
 
-            Console.WriteLine($"{sentimentSum}, sentiment sum");
-
             return sentimentSum;
 
         } 

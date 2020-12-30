@@ -11,6 +11,7 @@ const ChatInput = (props) => {
     const onSubmit = (e) => {
         e.preventDefault();
 
+        // checks if user or message fields are blank
         const isUserProvided = user && user !== '';
         const isMessageProvided = message && message !== '';
 
@@ -20,9 +21,11 @@ const ChatInput = (props) => {
         else {
             alert('Please type a username and message!');
         }
+        // resets message field after it's sent
         setMessage('')
     }
 
+    //automatically sets display name if logged in
     const onUserUpdate = (e) => {
         let user = firebase.auth().currentUser;
         if (user) {
@@ -37,38 +40,37 @@ const ChatInput = (props) => {
     }
 
     return (
-        <div className="card text-center">
-            <div className="card-body mx-auto">
-            <form class="form-inline"
-            onSubmit={onSubmit}>
-            <label style={{margin: '1rem'}} htmlFor="user">User:</label>
-            <br />
-            <input 
-                id="user" 
-                name="user" 
-                value={user}
-                onChange={onUserUpdate} />
-            <br/>
-            <div className="form-group" style={{margin: '1rem'}}>
-            <label style={{margin: '1rem'}} htmlFor="message">Message:</label>
-            <br />
-            <input 
-                
-                type="text"
-                id="message"
-                name="message" 
-                value={message}
-                onChange={onMessageUpdate}
-                rows="3" />
-            <br/><br/>
-            </div>
-            <button className="btn btn-success btn-lg">Submit</button>
+        <div className="card text-center text-white bg-dark">
+            <div className="card-body mx-auto w-75">
+            <form onSubmit={onSubmit}>
+                <div className="row">
+                    <div className="col">
+                    <input style={{margin: '1rem'}}
+                        className="form-control"
+                        placeholder="User Name" 
+                        id="user" 
+                        name="user" 
+                        value={user}
+                        onChange={onUserUpdate} 
+                    />
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col">
+                    <input style={{margin: '1rem'}}
+                       className="form-control"
+                       placeholder="Message"
+                       type="text"
+                       id="message"
+                       name="message" 
+                       value={message}
+                       onChange={onMessageUpdate}
+                       rows="3" />
+                    </div>
+                </div>
+            <button className="btn btn-success btn-lg">Submit!</button>
             </form>
-
-            
             </div>
-            
-        
         </div>
         
     )

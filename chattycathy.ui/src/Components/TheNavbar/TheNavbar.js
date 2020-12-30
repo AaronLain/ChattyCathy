@@ -18,6 +18,7 @@ class TheNavbar extends React.Component {
     state = {
         isOpen: false,
         id: '',
+        photoUrl: ''
       }
 
     toggle = () => {
@@ -35,7 +36,7 @@ class TheNavbar extends React.Component {
             const uid = firebase.auth().currentUser.uid;
             authData.getUsers()
               .then(response => response.filter(x => x.fBuid === uid))
-              .then(user => user ? this.setState({id: user[0].userId}) : console.log('no user'))
+              .then(user => user ? this.setState({id: user[0].userId, photoUrl:user[0].imageUrl}) : console.log('no user'))
               .catch(err => console.error('Could not filter users', err))
           }
         })
@@ -65,6 +66,11 @@ class TheNavbar extends React.Component {
                   <NavLink tag={RRNavLink} to={`/profile/${this.state.id}`}>Profile</NavLink>
                 </NavItem>
                 <NavItem>
+                  <a className="navbar-brand" style={{ borderRadius: '50rem'}}>
+                    <img src={this.state.photoUrl} width="30" height="30" className="d-inline-block ml-auto" alt=""/>
+                  </a>
+                </NavItem>
+                <NavItem>
                   <NavLink className="btn btn-danger ml-auto" onClick={this.logOut}>Logout</NavLink>
                 </NavItem>
                 </Nav>
@@ -76,7 +82,7 @@ class TheNavbar extends React.Component {
                   <NavLink tag={RRNavLink} to='/chat'>Chat</NavLink>
                 </NavItem>
               <NavItem>
-                <button className="btn btn-warning ml-auto" onClick={this.loginClickEvent}>Google Login</button>
+                <button className="btn btn-success ml-auto" onClick={this.loginClickEvent}>Google Login</button>
               </NavItem>
               </Nav>
             )
@@ -85,8 +91,10 @@ class TheNavbar extends React.Component {
 
         return (
         <div className="DatNavbar">
-          <Navbar color="light" light expand="md">
-            <NavbarBrand href="/">Chatty Cathy!</NavbarBrand>
+          <Navbar color="transparent" light expand="md">
+            <NavbarBrand href="/">
+              CC
+            </NavbarBrand>
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={isOpen} navbar>
                 {authedNavBar()}

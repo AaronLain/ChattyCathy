@@ -15,7 +15,7 @@ class App extends React.Component {
   state = {authed: true};
 
   componentDidMount() {
-    document.body.style.backgroundColor = "#FFDD99"
+    document.body.style.backgroundColor = "#C7E8F3"
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.setState({ authed: true });
