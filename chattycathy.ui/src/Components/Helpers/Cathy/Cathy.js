@@ -10,9 +10,15 @@ const greetings = messageData.getGreetings()
 const secretTriggers = messageData.getSecretTriggers();
 
 // gets the secrets from the database TODO add randomizer 
-const secretFetch = () => messageData.getSecretById(2).then(result => {
-    return result
+
+const secretFetch = (rand) => messageData.getSecretById(rand).then(result => {
+    return result;
 })
+
+const fetchRandSecret = () => {
+    const rand = Math.floor(Math.random() * 4)
+    return secretFetch(rand); 
+}
 
 //gets the users ID based on their Firebase UID
 const getUserIdByFBuid = (fBuid) => new Promise ((resolve, reject) => {
@@ -47,7 +53,7 @@ const replyRandomizer = (messageArr) => {
 // checks if the message includes any greeting triggers or secret triggers
 // if not, returns random response
 const cathyTriggerFilter = async (userName, message) => {
-    return secretFetch().then((secret) => {
+    return fetchRandSecret().then((secret) => {
         if (greetings.some(g => message.includes(g))) {
             return `${replyRandomizer(greetings)} ${userName}`;
         } else if (secretTriggers.some(s => message.includes(s))) {
