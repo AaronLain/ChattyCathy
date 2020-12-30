@@ -11,6 +11,7 @@ const ChatInput = (props) => {
     const onSubmit = (e) => {
         e.preventDefault();
 
+        // checks if user or message fields are blank
         const isUserProvided = user && user !== '';
         const isMessageProvided = message && message !== '';
 
@@ -20,9 +21,11 @@ const ChatInput = (props) => {
         else {
             alert('Please type a username and message!');
         }
+        // resets message field after it's sent
         setMessage('')
     }
 
+    //automatically sets display name if logged in
     const onUserUpdate = (e) => {
         let user = firebase.auth().currentUser;
         if (user) {
@@ -37,7 +40,7 @@ const ChatInput = (props) => {
     }
 
     return (
-        <div className="card text-center">
+        <div className="card text-center text-white bg-dark">
             <div className="card-body mx-auto w-75">
             <form onSubmit={onSubmit}>
                 <div className="row">
