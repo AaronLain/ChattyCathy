@@ -82,7 +82,7 @@ class TheNavbar extends React.Component {
                   <NavLink tag={RRNavLink} to='/chat'>Chat</NavLink>
                 </NavItem>
               <NavItem>
-                <button className="btn btn-warning ml-auto" onClick={this.loginClickEvent}>Google Login</button>
+                <button className="btn btn-success ml-auto" onClick={this.loginClickEvent}>Google Login</button>
               </NavItem>
               </Nav>
             )
@@ -91,7 +91,7 @@ class TheNavbar extends React.Component {
 
         return (
         <div className="DatNavbar">
-          <Navbar color="light" light expand="md">
+          <Navbar color="transparent" light expand="md">
             <NavbarBrand href="/">Chatty Cathy!</NavbarBrand>
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={isOpen} navbar>
