@@ -36,16 +36,18 @@ namespace ChattyCathy.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateUserSentiment(int id, string userId)
+        public IActionResult UpdateUserSentiment(int id, int sentiment)
         {
-            var updatedSentiment = _repo.GetUserSentimentScoreByUserId(userId);
+            var user = _repo.GetUserById(id);
+
+            var updatedSentiment = _repo.GetUserSentimentScoreByUserId(user.FBuid);
 
             var updatedUser = _repo.Update(id, updatedSentiment);
 
             return Ok(updatedUser);
         }
 
-        [HttpGet("{fBuid}")]
+        [HttpGet("user/{fBuid}")]
         public IActionResult GetUserSentimentByFBuid(string fBuid)
         {
             var user = _repo.GetUserByFBuid(fBuid);

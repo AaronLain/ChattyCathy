@@ -10,9 +10,9 @@ const getUsers = () => new Promise((resolve, reject) => {
   });
 
   const getSentimentByFBuid = async (fBuid) => {
-    const response = Promise.resolve(axios.get(`${baseUrl}/users/${fBuid}`));
+    const response = Promise.resolve(axios.get(`${baseUrl}/users/user/${fBuid}`));
     const sentiment = await response;
-    return sentiment
+    return sentiment.data
   }
 
   

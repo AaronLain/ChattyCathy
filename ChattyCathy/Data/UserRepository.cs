@@ -83,7 +83,7 @@ namespace ChattyCathy.Data
 
             var query = @"select SUM(Sentiment) as SentimentSum
                           from Messages
-                          where UserId = @uid";
+                          where UserId =@uid";
 
             var parameters = new { uid = userId };
 

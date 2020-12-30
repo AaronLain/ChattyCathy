@@ -28,27 +28,29 @@ const getUserIdByFBuid = (fBuid) => new Promise ((resolve, reject) => {
 
 //checks the user's overall sentiment to determine if they get a secret or a
 const fetchRandSecretOrBurn = (fBuid) => {
-    const userSentiment = userData.getSentimentByFBuid(fBuid);
-    const rand = Math.floor(Math.random() * 4)
-    if (rand != 0) {
-        if (userSentiment > 1) return secretFetch(rand)
-        else return burnFetch(rand)
-    } else {
-        fetchRandSecretOrBurn(userSentiment)
-    }
+    return userData.getSentimentByFBuid(fBuid).then(userSentiment => {
+        console.log(userSentiment, 'userSentiment')
+        const rand = Math.floor(Math.random() * 4)
+        if (rand != 0) {
+            if (userSentiment > 1) return secretFetch(rand)
+            else return burnFetch(rand)
+        } else {
+            fetchRandSecretOrBurn(userSentiment)
+        }
+    })
 }
 
 const cathySummoner = (messageObj, parsedMessage) => {
     // looks for @cathy to create a response
     if(parsedMessage.includes('@cathy')) {
         setTimeout(() => {
-            cathyMessage(messageObj.userName, parsedMessage)
+            cathyMessage(messageObj, parsedMessage)
         }, 2600);
     }
     //gets the userId from the fbuid if the user is logged in (the 0 gets overriden on the backend--it only exists to satisfy axios)
     getUserIdByFBuid(messageObj.userId)
         .then(response => {
-            if (response) userData.updateUserSentiment(response[0].userId, messageObj.userId)
+            if (response) userData.updateUserSentiment(response[0].userId, 0)
         })
         .catch(() => console.log('no userId to check'))  
     }
@@ -63,6 +65,7 @@ const replyRandomizer = (messageArr) => {
 // checks if the message includes any greeting triggers or secret triggers
 // if not, returns random response
 const cathyTriggerFilter = async (user, message) => {
+    console.log(user.userId, 'userId??')
     return fetchRandSecretOrBurn(user.userId).then((secret) => {
         if (greetings.some(g => message.includes(g))) {
             return `${replyRandomizer(greetings)} ${user.userName}`;
