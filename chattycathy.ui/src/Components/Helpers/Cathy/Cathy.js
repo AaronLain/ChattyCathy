@@ -26,7 +26,8 @@ const getUserIdByFBuid = (fBuid) => new Promise ((resolve, reject) => {
         .catch(err => reject(err))
 })
 
-//checks the user's overall sentiment to determine if they get a secret or a
+//checks the user's overall sentiment to determine if they get a secret or a sick burn
+// Todo add func that counts messages and make divisor of sentiment 
 const fetchRandSecretOrBurn = (fBuid) => {
     return userData.getSentimentByFBuid(fBuid).then(userSentiment => {
         const rand = Math.floor(Math.random() * 4)
