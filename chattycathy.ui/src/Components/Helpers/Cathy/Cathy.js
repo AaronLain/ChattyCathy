@@ -21,22 +21,23 @@ const getUserIdByFBuid = (fBuid) => new Promise ((resolve, reject) => {
 
 
 const cathySummoner = (messageObj, parsedMessage) => {
+    if(parsedMessage.includes('@cathy')) {
+        setTimeout(() => {
+            cathyMessage(messageObj.userName, parsedMessage)
+        }, 2600);
+    }
     getUserIdByFBuid(messageObj.userId)
         .then(response => {
-            if(parsedMessage.includes('@cathy')) {
-                setTimeout(() => {
-                    cathyMessage(response[0].userName, parsedMessage)
-                    userData.updateUserSentiment(response[0].userId, 0)
-                }, 2600);
-            }
-        })  
+            if (response) userData.updateUserSentiment(response[0].userId, 0)
+        })
+        .catch(err => console.log('no userId to check', err))  
     }
 
 // randomizes Cathy's replies based on the length of whatever collection is triggered
 // so we don't have to make them all the same legnth
 const replyRandomizer = (messageArr) => {
     const rand = Math.floor(Math.random() * (messageArr.length));
-    if (rand !== 0) return messageArr[rand];
+    return messageArr[rand];
 }
 
 // checks if the message includes any greeting triggers or secret triggers

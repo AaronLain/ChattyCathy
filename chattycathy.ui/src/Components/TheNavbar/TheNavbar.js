@@ -92,7 +92,9 @@ class TheNavbar extends React.Component {
         return (
         <div className="DatNavbar">
           <Navbar color="transparent" light expand="md">
-            <NavbarBrand href="/">Chatty Cathy!</NavbarBrand>
+            <NavbarBrand href="/">
+              CC
+            </NavbarBrand>
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={isOpen} navbar>
                 {authedNavBar()}
