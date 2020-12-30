@@ -62,7 +62,7 @@ namespace ChattyCathy.Data
             return updatedCustomer;
         }
 
-        public User GetUserByFBuid(int fbUid)
+        public User GetUserByFBuid(string fbUid)
         {
             using var db = new SqlConnection(_connectionString);
 
