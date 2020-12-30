@@ -11,6 +11,12 @@ const getSecretById = async (id) => {
     return result.data.secretText
 }
 
+const getSickBurnById = async (id) => {
+    let burn = Promise.resolve(axios.get(`${baseUrl}/burns/${id}`))
+    let result = await burn;
+    return result.data.sickBurnContent
+}
+
 const responses =  ['hello', "isn't that nice.", 'oh gee whiz!', 'i dunno about that!', 'aw shucks.', 'you rang?', 'what do you want?']
 
 const greetings = ['hello', 'hi', 'hey', 'greetings', 'salutations']
@@ -29,5 +35,6 @@ export default {
     getResponses, 
     getGreetings, 
     getSecretTriggers, 
-    getSecretById 
+    getSecretById,
+    getSickBurnById
 };

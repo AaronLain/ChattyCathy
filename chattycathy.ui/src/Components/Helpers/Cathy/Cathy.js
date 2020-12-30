@@ -9,16 +9,26 @@ const greetings = messageData.getGreetings()
 
 const secretTriggers = messageData.getSecretTriggers();
 
-// gets the secrets from the database TODO add randomizer 
-
+// gets the secrets from the database 
 const secretFetch = (rand) => messageData.getSecretById(rand).then(result => {
     return result;
 })
 
-const fetchRandSecret = () => {
+//gets sick burns from database
+const burnFetch = (rand) => messageData.getSickBurnById(rand).then(result => {
+    return result;
+})
+
+const fetchRandSecretOrBurn = (userSentiment) => {
     const rand = Math.floor(Math.random() * 4)
-    return secretFetch(rand); 
+    if (rand != 0) {
+        if (userSentiment > 1) return secretFetch(rand)
+        else return burnFetch(rand)
+    } else {
+        fetchRandSecretOrBurn(userSentiment)
+    }
 }
+
 
 //gets the users ID based on their Firebase UID
 const getUserIdByFBuid = (fBuid) => new Promise ((resolve, reject) => {
@@ -35,7 +45,7 @@ const cathySummoner = (messageObj, parsedMessage) => {
             cathyMessage(messageObj.userName, parsedMessage)
         }, 2600);
     }
-    //gets the userId from the fbuid if the user is logged in
+    //gets the userId from the fbuid if the user is logged in (the 0 gets overriden on the backend--it only exists to satisfy axios)
     getUserIdByFBuid(messageObj.userId)
         .then(response => {
             if (response) userData.updateUserSentiment(response[0].userId, 0)
@@ -53,7 +63,7 @@ const replyRandomizer = (messageArr) => {
 // checks if the message includes any greeting triggers or secret triggers
 // if not, returns random response
 const cathyTriggerFilter = async (userName, message) => {
-    return fetchRandSecret().then((secret) => {
+    return fetchRandSecretOrBurn(2).then((secret) => {
         if (greetings.some(g => message.includes(g))) {
             return `${replyRandomizer(greetings)} ${userName}`;
         } else if (secretTriggers.some(s => message.includes(s))) {
