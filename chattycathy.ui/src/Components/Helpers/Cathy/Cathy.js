@@ -29,7 +29,6 @@ const getUserIdByFBuid = (fBuid) => new Promise ((resolve, reject) => {
 //checks the user's overall sentiment to determine if they get a secret or a
 const fetchRandSecretOrBurn = (fBuid) => {
     return userData.getSentimentByFBuid(fBuid).then(userSentiment => {
-        console.log(userSentiment, 'userSentiment')
         const rand = Math.floor(Math.random() * 4)
         if (rand != 0) {
             if (userSentiment > 1) return secretFetch(rand)
@@ -65,7 +64,6 @@ const replyRandomizer = (messageArr) => {
 // checks if the message includes any greeting triggers or secret triggers
 // if not, returns random response
 const cathyTriggerFilter = async (user, message) => {
-    console.log(user.userId, 'userId??')
     return fetchRandSecretOrBurn(user.userId).then((secret) => {
         if (greetings.some(g => message.includes(g))) {
             return `${replyRandomizer(greetings)} ${user.userName}`;
