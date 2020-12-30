@@ -62,7 +62,7 @@ namespace ChattyCathy.Data
             return updatedCustomer;
         }
 
-        public User GetUserByFBuid(int fbUid)
+        public User GetUserByFBuid(string fbUid)
         {
             using var db = new SqlConnection(_connectionString);
 
@@ -83,7 +83,7 @@ namespace ChattyCathy.Data
 
             var query = @"select SUM(Sentiment) as SentimentSum
                           from Messages
-                          where UserId = @uid";
+                          where UserId =@uid";
 
             var parameters = new { uid = userId };
 

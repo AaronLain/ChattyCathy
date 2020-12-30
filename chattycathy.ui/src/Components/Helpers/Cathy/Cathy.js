@@ -9,9 +9,14 @@ const greetings = messageData.getGreetings()
 
 const secretTriggers = messageData.getSecretTriggers();
 
-// gets the secrets from the database TODO add randomizer 
-const secretFetch = () => messageData.getSecretById(2).then(result => {
-    return result
+// gets the secrets from the database 
+const secretFetch = (rand) => messageData.getSecretById(rand).then(result => {
+    return result;
+})
+
+//gets sick burns from database
+const burnFetch = (rand) => messageData.getSickBurnById(rand).then(result => {
+    return result;
 })
 
 //gets the users ID based on their Firebase UID
@@ -21,15 +26,28 @@ const getUserIdByFBuid = (fBuid) => new Promise ((resolve, reject) => {
         .catch(err => reject(err))
 })
 
+//checks the user's overall sentiment to determine if they get a secret or a sick burn
+// Todo add func that counts messages and make divisor of sentiment 
+const fetchRandSecretOrBurn = (fBuid) => {
+    return userData.getSentimentByFBuid(fBuid).then(userSentiment => {
+        const rand = Math.floor(Math.random() * 4)
+        if (rand != 0) {
+            if (userSentiment > 1) return secretFetch(rand)
+            else return burnFetch(rand)
+        } else {
+            fetchRandSecretOrBurn(userSentiment)
+        }
+    })
+}
 
 const cathySummoner = (messageObj, parsedMessage) => {
     // looks for @cathy to create a response
     if(parsedMessage.includes('@cathy')) {
         setTimeout(() => {
-            cathyMessage(messageObj.userName, parsedMessage)
+            cathyMessage(messageObj, parsedMessage)
         }, 2600);
     }
-    //gets the userId from the fbuid if the user is logged in
+    //gets the userId from the fbuid if the user is logged in (the 0 gets overriden on the backend--it only exists to satisfy axios)
     getUserIdByFBuid(messageObj.userId)
         .then(response => {
             if (response) userData.updateUserSentiment(response[0].userId, 0)
@@ -46,10 +64,10 @@ const replyRandomizer = (messageArr) => {
 
 // checks if the message includes any greeting triggers or secret triggers
 // if not, returns random response
-const cathyTriggerFilter = async (userName, message) => {
-    return secretFetch().then((secret) => {
+const cathyTriggerFilter = async (user, message) => {
+    return fetchRandSecretOrBurn(user.userId).then((secret) => {
         if (greetings.some(g => message.includes(g))) {
-            return `${replyRandomizer(greetings)} ${userName}`;
+            return `${replyRandomizer(greetings)} ${user.userName}`;
         } else if (secretTriggers.some(s => message.includes(s))) {
             return secret;
         } else {

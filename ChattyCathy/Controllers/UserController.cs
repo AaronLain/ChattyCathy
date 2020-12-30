@@ -1,6 +1,7 @@
 ﻿using ChattyCathy.Data;
 using ChattyCathy.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 
 namespace ChattyCathy.Controllers
@@ -37,11 +38,24 @@ namespace ChattyCathy.Controllers
         [HttpPut("{id}")]
         public IActionResult UpdateUserSentiment(int id, int sentiment)
         {
-            var updatedSentiment = _repo.GetUserSentimentScoreByUserId("CcMYQpl2DRRZ2FLRP0fCcZXHnyy2");
+            var user = _repo.GetUserById(id);
+
+            var updatedSentiment = _repo.GetUserSentimentScoreByUserId(user.FBuid);
 
             var updatedUser = _repo.Update(id, updatedSentiment);
 
             return Ok(updatedUser);
+        }
+
+        [HttpGet("user/{fBuid}")]
+        public IActionResult GetUserSentimentByFBuid(string fBuid)
+        {
+            var user = _repo.GetUserByFBuid(fBuid);
+
+            if (user == null) return NotFound("No user with that Id was found");
+
+            return Ok(user.Sentiment);
+
         }
 
 

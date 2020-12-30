@@ -60,7 +60,6 @@ const Chatty = () => {
             sentiment: 0,
             date: moment(),
         }
-        console.log(chatMessage, 'chatMessage')
         try {
             await messageData.postMessage(chatMessage);
         }
