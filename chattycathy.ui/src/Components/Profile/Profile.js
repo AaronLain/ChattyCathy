@@ -50,7 +50,7 @@ class Profile extends React.Component {
           userPhoto: this.getHigherResPhotoUrl(photoUrl),
           userSentiment: user.sentiment,
           fBuid: user.fBuid,
-        })
+        })  
       })
       .catch((err) => console.error('could not get user', err))
 
