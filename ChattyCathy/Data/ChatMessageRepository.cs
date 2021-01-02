@@ -26,6 +26,7 @@ namespace ChattyCathy.Data
 
             return messages.ToList();
         }
+
         public void Add(ChatMessage messageToAdd)
         {
             var sql = @"INSERT INTO [dbo].[Messages]

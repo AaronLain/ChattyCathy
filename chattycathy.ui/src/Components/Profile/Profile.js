@@ -99,7 +99,6 @@ class Profile extends React.Component {
               <CardTitle><h1>{userName}</h1></CardTitle>
               <CardBody className ="text-center">
                   <img src={userPhoto} height="50%" width="50%" alt="the user photo" />
-                  
               </CardBody>
               <CardFooter className="text-center">
                   <button className="btn btn-danger w-20 " onClick={this.toggle}>Edit</button>  
