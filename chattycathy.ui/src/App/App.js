@@ -6,6 +6,7 @@ import Chatty from '../Components/Chat/Chat';
 import Home from '../Components/Home/Home';
 import Login from '../Components/Login/Login';
 import TheNavbar from '../Components/TheNavbar/TheNavbar';
+import Profile from '../Components/Profile/Profile';
 
 import fbConnection from '../Components/Helpers/Data/connection';
 
@@ -42,6 +43,7 @@ class App extends React.Component {
               <Route path='/home' component={Home} authed={authed} />
               <Route path='/login' component={Login} authed={authed} />
               <Route path='/chat' component={Chatty} authed={authed} />
+              <Route path='/profile/:userId' component={Profile} authed={authed} />
               <Redirect from="*" to="/home"/>
             </Switch>
           </div>

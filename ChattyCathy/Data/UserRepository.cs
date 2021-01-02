@@ -42,7 +42,33 @@ namespace ChattyCathy.Data
             return user;
         }
 
-        public User Update(int userId, int sentiment)
+        public User Update(int userId, User user)
+        {
+            var sql = @"UPDATE [dbo].[Users]
+                        SET [UserName] = @userName,
+                            [ImageUrl] = @imageUrl,
+                            [Sentiment] = @sentiment,
+                            [FBuid] = @fBuid
+                        output inserted.*
+                        WHERE UserId = @userId";
+
+            using var db = new SqlConnection(_connectionString);
+
+            var parameters = new
+            {
+                user.UserName,
+                user.ImageUrl,
+                user.Sentiment,
+                user.FBuid,
+                UserId = userId
+            };
+
+            var updatedCustomer = db.QueryFirstOrDefault<User>(sql, parameters);
+
+            return updatedCustomer;
+        }
+
+        public User UpdateSentiment(int userId, int sentiment)
         {
             var sql = @"UPDATE [dbo].[Users]
                         SET [Sentiment] = @sentiment

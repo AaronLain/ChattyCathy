@@ -51,7 +51,8 @@ const Chatty = () => {
         }    
     }
 
-    //build our message object with userId, message from ChatInput. NOTE: userId in Message is actuall Firebase UID (I'll explain/fix later)
+    //build our message object with userId, message from ChatInput. 
+    //NOTE: userId in Message is actuall Firebase UID (I'll explain/fix later)
     const sendMessage = async (user, message) => {
         const chatMessage = {
             userName: user,
@@ -77,11 +78,8 @@ const Chatty = () => {
 
     return (
         <div className="col w-100 mx-auto" style={{margin: '1rem'}}>
-
-                <ChatWindow chat={chat} authed={authed}/>
-                <ChatInput sendMessage={sendMessage} />
-          
-            
+            <ChatWindow chat={chat} authed={authed}/>
+            <ChatInput sendMessage={sendMessage} />
         </div>
     );
 };
