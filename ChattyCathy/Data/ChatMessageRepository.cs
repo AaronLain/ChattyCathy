@@ -27,13 +27,14 @@ namespace ChattyCathy.Data
             return messages.ToList();
         }
 
-        public List<ChatMessage> GetMessageByUserId(int userId)
+        public List<ChatMessage> GetMessageByUserId(string userId)
         {
             using var db = new SqlConnection(_connectionString);
 
-            var query = @"SELECT * 
+            var query = @"SELECT Content, [Date]
                         FROM [Messages]
                         WHERE UserId = @uid";
+
             var parameters = new { uid = userId };
 
             var messages = db.Query<ChatMessage>(query, parameters).ToList();

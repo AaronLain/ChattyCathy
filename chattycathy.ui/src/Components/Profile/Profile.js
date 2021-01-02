@@ -1,5 +1,6 @@
 import React from 'react';
 import firebase from 'firebase';
+import Message from '../Chat/ChatWindow/Message/Message'
 import {
   Container,
   Row,
@@ -20,6 +21,7 @@ import {
 } from 'reactstrap';
 
 import userData from '../Helpers/Data/userData';
+import messageData from '../Helpers/Data/messageData';
 
 class Profile extends React.Component {
   state = {
@@ -28,8 +30,9 @@ class Profile extends React.Component {
     userPhoto: '',
     userSentiment: '',
     fBuid: '',
+    messages: []
   }
-
+        
   //changes google firebase photo url to return a larger res photo
   getHigherResPhotoUrl = photoURL => {
     return photoURL.replace('s96-c', 's400-c'); 
@@ -37,9 +40,10 @@ class Profile extends React.Component {
 
   componentDidMount() {
     const userId = this.props.match.params.userId;
+    const fBuid = firebase.auth().currentUser.uid;
     const photoUrl = firebase.auth().currentUser.photoURL;
     userData.getUserData(userId)
-      .then((response) => {
+      .then(response => {
         const user = response.data;
         this.setState({
           userName: user.userName,
@@ -49,6 +53,20 @@ class Profile extends React.Component {
         })
       })
       .catch((err) => console.error('could not get user', err))
+
+      messageData.getMessagesByFBuid(fBuid)
+        .then(response => {
+            console.log(response.data, 'messages>??')
+            this.setState({messages: response.data})
+        })
+        .catch(err => console.error('could not get messages', err))
+  }
+
+  messageBuilder = () => {
+      this.state.messages.map(m => <Message 
+        key={Date.now() * Math.random()}
+        user={this.state.userName}
+        message={m.content}/>)
   }
 
   editUser = (e) => {
@@ -99,12 +117,13 @@ class Profile extends React.Component {
               <CardTitle><h1>{userName}</h1></CardTitle>
               <CardBody className ="text-center">
                   <img src={userPhoto} height="50%" width="50%" alt="the user photo" />
+                  {this.messageBuilder}
               </CardBody>
               <CardFooter className="text-center">
                   <button className="btn btn-danger w-20 " onClick={this.toggle}>Edit</button>  
               </CardFooter>
             </Card>
-          <Modal isOpen={modal} toggle={this.toggle} >
+          <Modal isOpen={modal} toggle={this.toggle}>
             <ModalHeader toggle={this.toggle}>Change it up!</ModalHeader>
             <ModalBody>
               <Form>

@@ -32,10 +32,10 @@ namespace ChattyCathy.Controllers
             return Ok(allMessages);
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetMessagesByUserId(int userId)
+        [HttpGet("{fBuid}")]
+        public IActionResult GetMessagesByUserId(string fBuid)
         {
-            var userMessages = _repo.GetMessageByUserId(userId);
+            var userMessages = _repo.GetMessageByUserId(fBuid);
 
             return Ok(userMessages);
         }

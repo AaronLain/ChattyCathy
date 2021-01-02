@@ -3,7 +3,9 @@ import {baseUrl} from "./constants.json"
 
 const postMessage = (chatMessage) => axios.post(`${baseUrl}/messages`, chatMessage);
 
-const parseMessage = (message) => message.toLowerCase().split(" ")
+const parseMessage = (message) => message.toLowerCase().split(" ");
+
+const getMessagesByFBuid = (fBuid) => axios.get(`${baseUrl}/messages/${fBuid}`)
 
 const getSecretById = async (id) => {
     let secret = Promise.resolve(axios.get(`${baseUrl}/secrets/${id}`))
@@ -36,5 +38,6 @@ export default {
     getGreetings, 
     getSecretTriggers, 
     getSecretById,
-    getSickBurnById
+    getSickBurnById,
+    getMessagesByFBuid
 };
