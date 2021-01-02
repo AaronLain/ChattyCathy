@@ -55,7 +55,7 @@ const Chatty = () => {
     //NOTE: userId in Message is actuall Firebase UID (I'll explain/fix later)
     const sendMessage = async (user, message) => {
         const chatMessage = {
-            userName: user,
+            userName: user, 
             content: message,
             userId: checkUid(),
             sentiment: 0,

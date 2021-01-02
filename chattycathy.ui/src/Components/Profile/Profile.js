@@ -48,7 +48,7 @@ class Profile extends React.Component {
           fBuid: user.fBuid,
         })
       })
-      .catch((err) => console.error('could not get single meat', err))
+      .catch((err) => console.error('could not get user', err))
   }
 
   editUser = (e) => {
