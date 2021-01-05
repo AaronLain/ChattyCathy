@@ -16,7 +16,7 @@ const ChatWindow = (props) => {
             <div className="card" 
              style={{backgroundColor: '#fff', borderRadius: '.5rem'}}>
               <div className="card-title">
-                <h4 className="title mt-3 heading text-center">Chat your heart out!</h4>
+                <h4 className="display-4 heading text-center">Chat your heart out!</h4>
               </div>
                 <div className="card-body text-center">
                 {chat}

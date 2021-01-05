@@ -30,7 +30,7 @@ const getUserIdByFBuid = (fBuid) => new Promise ((resolve, reject) => {
 const fetchRandSecretOrBurn = (fBuid) => {
     return userData.getSentimentByFBuid(fBuid).then(userSentiment => {
         const rand = Math.floor(Math.random() * 4)
-        if (rand != 0) {
+        if (rand !== 0) {
             if (userSentiment >= 1) return secretFetch(rand)
             else return burnFetch(rand)
         } else {
