@@ -68,7 +68,7 @@ namespace ChattyCathy.Data
             return updatedCustomer;
         }
 
-        public User UpdateSentiment(int userId, int sentiment)
+        public User UpdateSentiment(int userId, float sentiment)
         {
             var sql = @"UPDATE [dbo].[Users]
                         SET [Sentiment] = @sentiment
@@ -103,17 +103,21 @@ namespace ChattyCathy.Data
             return user;
         }
 
-        public int GetUserSentimentScoreByUserId(string userId)
+        public float GetUserSentimentScoreByUserId(string userId)
         {
             using var db = new SqlConnection(_connectionString);
 
-            var query = @"select SUM(Sentiment) as SentimentSum
+            //This sums only the non-neutral messages and divides them by the count of non-neutral messages
+            //Basically ignores the zeros so the sentiment sum is somewhat normalized.
+
+            var query = @"select 1.0 * SUM(CASE WHEN Sentiment != 0 THEN Sentiment END) /
+                          COUNT(CASE WHEN Sentiment != 0 THEN Sentiment END) as SentimentSum
                           from Messages
-                          where UserId =@uid";
+                          where UserId = @uid";
 
             var parameters = new { uid = userId };
 
-            var sentimentSum = db.QueryFirstOrDefault<int>(query, parameters);
+            var sentimentSum = db.QueryFirstOrDefault<float>(query, parameters);
 
             return sentimentSum;
 
@@ -137,11 +141,6 @@ namespace ChattyCathy.Data
             userToAdd.UserId = newId;
 
         }
-
-        //public int UserSentimentSetter()
-        //{
-
-        //}
 
     }
 }

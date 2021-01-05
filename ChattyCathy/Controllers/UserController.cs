@@ -45,7 +45,7 @@ namespace ChattyCathy.Controllers
         }
 
         [HttpPut("user/{id}")]
-        public IActionResult UpdateUserSentiment(int id, int sentiment)
+        public IActionResult UpdateUserSentiment(int id, float sentiment)
         {
             var user = _repo.GetUserById(id);
 

@@ -14,6 +14,7 @@ const getUsers = () => new Promise((resolve, reject) => {
 const getSentimentByFBuid = async (fBuid) => {
   const response = Promise.resolve(axios.get(`${baseUrl}/users/user/${fBuid}`));
   const sentiment = await response;
+  console.log(sentiment.data, 'sentiment??')
   
   try {
     return sentiment.data;
