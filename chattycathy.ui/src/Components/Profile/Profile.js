@@ -62,12 +62,13 @@ class Profile extends React.Component {
         .catch(err => console.error('could not get messages', err))
   }
 
-  messageBuilder = () => {
-      this.state.messages.map(m => <Message 
-        key={Date.now() * Math.random()}
-        user={this.state.userName}
-        message={m.content}/>)
-  }
+  // messageBuilder = () => {
+  //     this.state.messages.map(m => {
+  //       return <Message 
+  //       user={this.state.userName}
+  //       message={m.content}/>
+  //     })
+  // }
 
   editUser = (e) => {
     const userId = this.props.match.params.userId;
@@ -114,13 +115,13 @@ class Profile extends React.Component {
         <Row>
           <Col>
             <Card className ="mx-auto text-center">
-              <CardTitle><h1>{userName}</h1></CardTitle>
+              <CardTitle className="display-2">{userName}</CardTitle>
               <CardBody className ="text-center">
                   <img src={userPhoto} height="50%" width="50%" alt="the user photo" />
                   {this.messageBuilder}
               </CardBody>
               <CardFooter className="text-center">
-                  <button className="btn btn-danger w-20 " onClick={this.toggle}>Edit</button>  
+                  <button className="btn btn-danger w-20 " onClick={this.toggle}>Edit Photo</button>  
               </CardFooter>
             </Card>
           <Modal isOpen={modal} toggle={this.toggle}>

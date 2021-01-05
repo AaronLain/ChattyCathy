@@ -31,7 +31,7 @@ namespace ChattyCathy.Data
         {
             using var db = new SqlConnection(_connectionString);
 
-            var query = @"SELECT Content, [Date]
+            var query = @"SELECT Content, [Date], Sentiment
                         FROM [Messages]
                         WHERE UserId = @uid";
 

@@ -9,6 +9,7 @@ node_modules/
 dist/
 build/
 .firebase/
+ChattyCathy\appsettings.json
 # User-specific files
 *.rsuser
 *.suo
