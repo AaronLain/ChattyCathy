@@ -51,8 +51,6 @@ namespace ChattyCathy.Controllers
 
             var updatedSentiment = _repo.GetUserSentimentScoreByUserId(user.FBuid);
 
-            Console.WriteLine($"{updatedSentiment}, sentiment");
-
             var updatedUser = _repo.UpdateSentiment(id, updatedSentiment);
 
             return Ok(updatedUser);

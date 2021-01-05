@@ -62,13 +62,6 @@ class Profile extends React.Component {
         .catch(err => console.error('could not get messages', err))
   }
 
-  messageBuilder = (messages) => {
-      messages.map(m => {
-        console.log(m.content, 'm??')
-        return <li className="list-group-item">{m.content}</li>
-      })
-  }
-
   editUser = (e) => {
     const userId = this.props.match.params.userId;
     const {
@@ -107,20 +100,27 @@ class Profile extends React.Component {
       modal,
       userName,
       userPhoto,
+      messages,
     } = this.state;
     
+    const messageBuilder = (messages) => {
+      messages.map(m => {
+        console.log(m.content)
+        return (<Message key={m.messageId} user={m.userName} message={m.content} />)
+      })
+  }
+
     return (
       <Container>
         <Row>
           <Col>
             <Card className ="mx-auto text-center">
               <CardTitle className="display-2">{userName}</CardTitle>
-              <div className ="text-center">
-                  <img src={userPhoto} height="50%" width="50%" alt="the user photo" />
-                  <ul className="list-group list-group-flush">
-                    {this.messageBuilder(this.state.messages)}
-                  </ul>
-              </div>
+              <CardBody className="text-center">
+                  {/* <img src={userPhoto} height="50%" width="50%" alt="the user photo" /> */}
+                    {messageBuilder(messages)}
+
+              </CardBody>
               <CardFooter className="text-center">
                   <button className="btn btn-danger w-20 " onClick={this.toggle}>Edit Photo</button>  
               </CardFooter>
@@ -129,7 +129,7 @@ class Profile extends React.Component {
             <ModalHeader toggle={this.toggle}>Change it up!</ModalHeader>
             <ModalBody>
               <Form>
-                <FormGroup>
+                {/* <FormGroup>
                   <Label for="userName">Name</Label>
                     <Input
                       type="text"
@@ -139,7 +139,7 @@ class Profile extends React.Component {
                       value={userName}
                       onChange={this.nameChange}
                     />
-                </FormGroup>
+                </FormGroup> */}
                 <FormGroup>
                   <Label for="photoUrl">Photo Url</Label>
                     <Input type="text"
