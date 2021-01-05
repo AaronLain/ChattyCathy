@@ -111,9 +111,9 @@ namespace ChattyCathy.Data
             //Basically ignores the zeros so the sentiment sum is somewhat normalized.
 
             var query = @"select 1.0 * SUM(CASE WHEN Sentiment != 0 THEN Sentiment END) /
-                          COUNT(CASE WHEN Sentiment != 0 THEN Sentiment END) as SentimentSum
-                          from Messages
-                          where UserId = @uid";
+                         COUNT(CASE WHEN Sentiment != 0 THEN Sentiment END) as SentimentSum
+                         from Messages
+                         where UserId = @uid";
 
             var parameters = new { uid = userId };
 
