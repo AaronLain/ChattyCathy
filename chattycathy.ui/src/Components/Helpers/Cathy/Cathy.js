@@ -27,12 +27,11 @@ const getUserIdByFBuid = (fBuid) => new Promise ((resolve, reject) => {
 })
 
 //checks the user's overall sentiment to determine if they get a secret or a sick burn
-// Todo add func that counts messages and make divisor of sentiment 
 const fetchRandSecretOrBurn = (fBuid) => {
     return userData.getSentimentByFBuid(fBuid).then(userSentiment => {
         const rand = Math.floor(Math.random() * 4)
-        if (rand != 0) {
-            if (userSentiment > 1) return secretFetch(rand)
+        if (rand !== 0) {
+            if (userSentiment >= 1) return secretFetch(rand)
             else return burnFetch(rand)
         } else {
             fetchRandSecretOrBurn(userSentiment)
@@ -79,6 +78,7 @@ const cathyTriggerFilter = async (user, message) => {
 // after the message has been decided, it is sent to the back end here
 const cathyMessage = async (user, message) => {
     cathyTriggerFilter(user, message).then((response) => {
+        console.log(response, 'cathy response')
         const chatMessage = {
             userName: 'Cathy',
             content: response,

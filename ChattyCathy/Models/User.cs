@@ -13,7 +13,7 @@ namespace ChattyCathy.Models
 
         public string ImageUrl { get; set; }
 
-        public int Sentiment { get; set; }
+        public float Sentiment { get; set; }
 
         public string FBuid { get; set; }
     }

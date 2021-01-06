@@ -19,7 +19,7 @@ namespace ChattyCathy.Controllers
         public ChatController(IHubContext<ChatHub, IChatClient> chatHub, ChatMessageRepository repo)
         {
             _chatHub = chatHub;
-            
+
             _repo = repo;
 
         }
@@ -30,6 +30,14 @@ namespace ChattyCathy.Controllers
             var allMessages = _repo.GetMessages();
 
             return Ok(allMessages);
+        }
+
+        [HttpGet("{fBuid}")]
+        public IActionResult GetMessagesByUserId(string fBuid)
+        {
+            var userMessages = _repo.GetMessageByUserId(fBuid);
+
+            return Ok(userMessages);
         }
 
 
