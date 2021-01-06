@@ -19,11 +19,11 @@ const getSickBurnById = async (id) => {
     return result.data.sickBurnContent
 }
 
-const responses =  ['hello', "isn't that nice.", 'oh gee whiz!', 'i dunno about that!', 'aw shucks.', 'you rang?', 'what do you want?']
+const responses =  ['hello', "isn't that nice.", 'oh gee whiz!', 'i dunno about that!', 'aw shucks.', 'you rang?', 'what do you want?', 'i was not aware of that', 'huh', 'well there you go', 'thats what i was thinkin']
 
-const greetings = ['hello', 'hi', 'hey', 'greetings', 'salutations']
+const greetings = ['hello', 'hi', 'hey', 'greetings', 'salutations', 'sup', 'wassaaaaap', 'whats up']
 
-const secretTriggers = ['tell me a secret', 'secret', 'secrets']
+const secretTriggers = ['tell me a secret', 'secret', 'secrets', 'tell a secret']
 
 const getResponses = () => responses;
 

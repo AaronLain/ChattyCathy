@@ -103,24 +103,26 @@ class Profile extends React.Component {
       messages,
     } = this.state;
     
-    const messageBuilder = (messages) => {
-      messages.map(m => {
-        console.log(m.content)
-        return (<Message key={m.messageId} user={m.userName} message={m.content} />)
-      })
-  }
+  //   const messageBuilder = (messageArray) => {
+  //     messageArray.map(m => 
+  //      <CardFooter className="text-center">
+  //       <button className="btn btn-danger w-20 " onClick={this.toggle}>{m.content}</button>  
+  //     </CardFooter>
+  //     );
+      
+  // }
 
     return (
       <Container>
         <Row>
-          <Col>
+          <Col>   
             <Card className ="mx-auto text-center">
               <CardTitle className="display-2">{userName}</CardTitle>
               <CardBody className="text-center">
-                  {/* <img src={userPhoto} height="50%" width="50%" alt="the user photo" /> */}
-                    {messageBuilder(messages)}
-
+                  <img src={userPhoto} height="50%" width="50%" alt="the user photo" />
+                  
               </CardBody>
+              {/* {messageBuilder(messages)} */}
               <CardFooter className="text-center">
                   <button className="btn btn-danger w-20 " onClick={this.toggle}>Edit Photo</button>  
               </CardFooter>
@@ -129,17 +131,6 @@ class Profile extends React.Component {
             <ModalHeader toggle={this.toggle}>Change it up!</ModalHeader>
             <ModalBody>
               <Form>
-                {/* <FormGroup>
-                  <Label for="userName">Name</Label>
-                    <Input
-                      type="text"
-                      name="name"
-                      id="userName"
-                      placeholder="New Username goes here"
-                      value={userName}
-                      onChange={this.nameChange}
-                    />
-                </FormGroup> */}
                 <FormGroup>
                   <Label for="photoUrl">Photo Url</Label>
                     <Input type="text"
