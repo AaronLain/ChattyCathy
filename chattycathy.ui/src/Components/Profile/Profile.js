@@ -95,6 +95,7 @@ class Profile extends React.Component {
       modal,
       userName,
       userPhoto,
+      userSentiment
     } = this.state;
 
     return (
@@ -107,6 +108,9 @@ class Profile extends React.Component {
                   <img src={userPhoto} height="50%" width="50%" alt="the user photo" />
                   
               </CardBody>
+              <CardFooter>
+                <p className="display-4">Sentiment Rating: {userSentiment}</p>
+              </CardFooter>
               <CardFooter className="text-center">
                   <button className="btn btn-danger w-20 " onClick={this.toggle}>Edit Photo</button>  
               </CardFooter>

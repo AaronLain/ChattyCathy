@@ -21,7 +21,7 @@ const ChatInput = (props) => {
         else {
             alert('Please type a username and message!');
         }
-        // resets message field after it's sent
+        // resets message field after message is sent
         setMessage('')
     }
 

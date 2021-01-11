@@ -27,7 +27,7 @@ const Chatty = () => {
             .build();
 
             connection.start()
-                .then(result => {
+                .then(() => {
                     console.log('Connected');
                     // update the chat based on the recieved messages by SignalR/backend
                     connection.on('ReceiveMessage', message => {
@@ -70,8 +70,6 @@ const Chatty = () => {
 
         //parses message so stop word removal is easier on backend
         const parsedMessage = messageData.parseMessage(chatMessage.content);
-
-        console.log(parsedMessage, 'parsed')
 
         //triggers cathy logic
         botData.cathySummoner(chatMessage, parsedMessage);

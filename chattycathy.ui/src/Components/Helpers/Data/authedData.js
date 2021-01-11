@@ -17,7 +17,8 @@ axios.interceptors.request.use(function (request) {
   return Promise.reject(err);
 });
 
-const checkUser = (user) => {
+
+const postUser = (user) => {
   getUsers().then((response) => {
     let eUser = response.filter(x => x.fBuid === user.FBuid)
     if(Object.keys(eUser).length === 0) {
@@ -29,7 +30,7 @@ const checkUser = (user) => {
   .catch(err => console.log(err))
 };
 
-const registerUser = (user) => {
+const registerUser = () => {
 
   //sub out whatever auth method firebase provides that you want to use.
   const provider = new firebase.auth.GoogleAuthProvider();
@@ -48,16 +49,12 @@ const registerUser = (user) => {
     cred.user.getIdToken()
       //save the token to the session storage
       .then(token => sessionStorage.setItem('token', token))
-      
+
       //save the user to the the api
       .then(() => {
-         checkUser(userInfo)
+         postUser(userInfo)
       })
-
-
-        
       .catch(err => console.error('Post Customer broke', err));
-      //console.log(typeof checkForUser(userInfo(FBuid)))
   });
 };
 

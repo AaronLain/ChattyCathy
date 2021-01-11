@@ -46,7 +46,7 @@ const cathySummoner = (messageObj, parsedMessage) => {
             cathyMessage(messageObj, parsedMessage)
         }, 2600);
     }
-    //gets the userId from the fbuid if the user is logged in 
+    //gets the userId from the fbuid if the user is logged in, then updates their sentiment on the backend
     //(the 0 in the update gets overriden on the backend--it only exists to satisfy axios; tried to fix it but no dice)
     getUserIdByFBuid(messageObj.userId)
         .then(response => {
@@ -79,7 +79,6 @@ const cathyTriggerFilter = (user, message) => {
 // after the message has been decided, it is sent to the back end here
 const cathyMessage = async (user, message) => {
     cathyTriggerFilter(user, message).then((response) => {
-        console.log(response, 'cathy response')
         const chatMessage = {
             userName: 'Cathy',
             content: response,
