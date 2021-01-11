@@ -56,9 +56,10 @@ namespace ChattyCathy.Controllers
             var messages = _mRepo.GetMessageByUserId(user.FBuid);
 
             bool isEmpty = !messages.Any();
+            // checks if user has previous messages, if not sets sentiment to 0.1 (error handling)
             if (isEmpty)
             {
-                var updatedSentiment = 0;
+                var updatedSentiment = 0.1F;
 
                 var updatedUser = _repo.UpdateSentiment(id, updatedSentiment);
 
