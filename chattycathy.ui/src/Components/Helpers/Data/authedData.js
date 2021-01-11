@@ -42,7 +42,7 @@ const registerUser = () => {
       UserName: cred.user.displayName,
       FBuid: cred.user.uid,
       ImageUrl: cred.user.photoURL,
-      Sentiment: 0,
+      Sentiment: 0.1,
     };
 
     //get token from firebase

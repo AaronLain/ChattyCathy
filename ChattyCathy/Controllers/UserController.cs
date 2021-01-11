@@ -1,7 +1,8 @@
 ﻿using ChattyCathy.Data;
 using ChattyCathy.Models;
 using Microsoft.AspNetCore.Mvc;
-using System;
+using System.Linq;
+
 
 
 namespace ChattyCathy.Controllers
@@ -12,9 +13,12 @@ namespace ChattyCathy.Controllers
     {
         UserRepository _repo;
 
-        public UserController(UserRepository repo)
+        ChatMessageRepository _mRepo;
+
+        public UserController(UserRepository repo, ChatMessageRepository mRepo)
         {
             _repo = repo;
+            _mRepo = mRepo;
         }
 
         [HttpGet]
@@ -49,11 +53,28 @@ namespace ChattyCathy.Controllers
         {
             var user = _repo.GetUserById(id);
 
-            var updatedSentiment = _repo.GetUserSentimentScoreByUserId(user.FBuid);
+            var messages = _mRepo.GetMessageByUserId(user.FBuid);
 
-            var updatedUser = _repo.UpdateSentiment(id, updatedSentiment);
+            bool isEmpty = !messages.Any();
+            if (isEmpty)
+            {
+                var updatedSentiment = 0;
 
-            return Ok(updatedUser);
+                var updatedUser = _repo.UpdateSentiment(id, updatedSentiment);
+
+                return Ok(updatedUser);
+
+            }
+            else
+            {
+                var updatedSentiment = _repo.GetUserSentimentScoreByUserId(user.FBuid);
+
+                var updatedUser = _repo.UpdateSentiment(id, updatedSentiment);
+
+                return Ok(updatedUser);
+            }
+            
+            
         }
 
         [HttpGet("user/{fBuid}")]
