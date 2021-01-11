@@ -26,7 +26,7 @@ const getUserIdByFBuid = (fBuid) => new Promise ((resolve, reject) => {
         .catch(err => reject(err))
 })
 
-//checks the user's overall sentiment to determine if they get a secret or a sick burn
+//checks the user's overall sentiment to determine if they get a RANDOM secret or a sick burn
 const fetchRandSecretOrBurn = (fBuid) => {
     return userData.getSentimentByFBuid(fBuid).then(userSentiment => {
         const rand = Math.floor(Math.random() * 4)
@@ -46,7 +46,8 @@ const cathySummoner = (messageObj, parsedMessage) => {
             cathyMessage(messageObj, parsedMessage)
         }, 2600);
     }
-    //gets the userId from the fbuid if the user is logged in (the 0 gets overriden on the backend--it only exists to satisfy axios)
+    //gets the userId from the fbuid if the user is logged in 
+    //(the 0 in the update gets overriden on the backend--it only exists to satisfy axios; tried to fix it but no dice)
     getUserIdByFBuid(messageObj.userId)
         .then(response => {
             if (response) userData.updateUserSentiment(response[0].userId, 0)
@@ -63,8 +64,8 @@ const replyRandomizer = (messageArr) => {
 
 // checks if the message includes any greeting triggers or secret triggers
 // if not, returns random response
-const cathyTriggerFilter = async (user, message) => {
-    return fetchRandSecretOrBurn(user.userId).then((secret) => {
+const cathyTriggerFilter = (user, message) => {
+    return fetchRandSecretOrBurn(user.userId).then(secret => {
         if (greetings.some(g => message.includes(g))) {
             return `${replyRandomizer(greetings)} ${user.userName}`;
         } else if (secretTriggers.some(s => message.includes(s))) {

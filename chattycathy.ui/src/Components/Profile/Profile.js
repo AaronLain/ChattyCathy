@@ -69,21 +69,16 @@ class Profile extends React.Component {
       userPhoto,
     } = this.state;
 
-    const updatedMeat = {
+    const updatedUser = {
       userName,
       imageUrl: userPhoto,
       sentiment: this.state.userSentiment,
       fBuid: this.state.fBuid,
     }
 
-    userData.updateUser(userId, updatedMeat)
+    userData.updateUser(userId, updatedUser)
       .then(() => this.props.history.push('/home')) //returns to home after post is complete
       .catch((err) => console.error('could not save user', err));
-  }
-
-  nameChange = (e) => {
-    e.preventDefault();
-    this.setState({ userName: e.target.value });
   }
 
   photoChange = (e) => {
@@ -100,7 +95,6 @@ class Profile extends React.Component {
       modal,
       userName,
       userPhoto,
-      messages,
     } = this.state;
 
     return (
