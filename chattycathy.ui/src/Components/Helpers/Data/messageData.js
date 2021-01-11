@@ -23,7 +23,7 @@ const responses =  ['hello', "isn't that nice.", 'oh gee whiz!', 'i dunno about 
 
 const greetings = ['hello', 'hi', 'hey', 'greetings', 'salutations', 'sup', 'wassaaaaap', 'whats up']
 
-const secretTriggers = ['tell me a secret', 'secret', 'secrets', 'tell a secret']
+const secretTriggers = ['secret', 'secrets']
 
 const getResponses = () => responses;
 

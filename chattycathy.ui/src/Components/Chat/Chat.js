@@ -27,7 +27,7 @@ const Chatty = () => {
             .build();
 
             connection.start()
-                .then(result => {
+                .then(() => {
                     console.log('Connected');
                     // update the chat based on the recieved messages by SignalR/backend
                     connection.on('ReceiveMessage', message => {

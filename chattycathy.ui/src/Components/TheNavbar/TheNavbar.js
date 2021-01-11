@@ -35,7 +35,9 @@ class TheNavbar extends React.Component {
           if (user) {
             const uid = firebase.auth().currentUser.uid;
             authData.getUsers()
-              .then(response => response.filter(x => x.fBuid === uid))
+               // gets the firebase uid from logged in user, then sets the their picture in the navbar
+               // sets the userid based on their firebase uid so they can see their profile
+              .then(response => response.filter(u => u.fBuid === uid))
               .then(user => user ? this.setState({id: user[0].userId, photoUrl:user[0].imageUrl}) : console.log('no user'))
               .catch(err => console.error('Could not filter users', err))
           }
@@ -55,6 +57,8 @@ class TheNavbar extends React.Component {
         const { isOpen } = this.state;
         const { authed } = this.props;
 
+
+        // renders navbar based on login status
         const authedNavBar = () => {
           if (authed) {
             return(
@@ -90,7 +94,7 @@ class TheNavbar extends React.Component {
         }
 
         return (
-        <div className="DatNavbar">
+        <div className="TheNavbar">
           <Navbar color="transparent" light expand="md">
             <NavbarBrand href="/">
               CC
