@@ -16,7 +16,7 @@ const getSecretById = async (id) => {
 const getSickBurnById = async (id) => {
     let burn = Promise.resolve(axios.get(`${baseUrl}/burns/${id}`))
     let result = await burn;
-    return result.data.sickBurnContent
+    return result.data
 }
 
 const responses =  ['hello', "isn't that nice.", 'oh gee whiz!', 'i dunno about that!', 'aw shucks.', 'you rang?', 'what do you want?', 'i was not aware of that', 'huh', 'well there you go', 'thats what i was thinkin']
