@@ -33,13 +33,8 @@ const fetchRandSecretOrBurn = (fBuid) => {
         console.log(rand, 'rand')
         const neg = Math.sign(userSentiment)
         if (rand !== 0) {
-            console.log(userSentiment, 'sentiment')
-            console.log(neg, 'neg')
             if (userSentiment >= 1 ) {
                 return secretFetch(rand)
-            } else if (Math.sign(userSentiment) === -1) {
-                return burnFetch(rand)
-                console.log('else')
             } else {
                 return burnFetch(rand)
             }
