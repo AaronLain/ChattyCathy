@@ -1,4 +1,5 @@
-﻿using ChattyCathy.Data;
+﻿using System;
+using ChattyCathy.Data;
 using ChattyCathy.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
@@ -56,14 +57,12 @@ namespace ChattyCathy.Controllers
             var messages = _mRepo.GetMessageByUserId(user.FBuid);
 
             bool isEmpty = !messages.Any();
-            // checks if user has previous messages, if not sets sentiment to 0.1 (error handling)
-            if (isEmpty)
+            // checks if user has previous messages
+             if (isEmpty)
             {
-                var updatedSentiment = 0.1F;
+                Console.WriteLine("No messages yet", id);
 
-                var updatedUser = _repo.UpdateSentiment(id, updatedSentiment);
-
-                return Ok(updatedUser);
+                return Ok(id);
 
             }
             else
