@@ -56,14 +56,10 @@ namespace ChattyCathy.Controllers
 
             var messages = _mRepo.GetMessageByUserId(user.FBuid);
 
-            bool isEmpty = !messages.Any();
             // checks if user has previous messages
-             if (isEmpty)
+             if (messages == null)
             {
-                Console.WriteLine("No messages yet", id);
-
-                return Ok(id);
-
+                return NotFound("No messages, no sentiment to update");
             }
             else
             {

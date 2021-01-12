@@ -30,9 +30,19 @@ const getUserIdByFBuid = (fBuid) => new Promise ((resolve, reject) => {
 const fetchRandSecretOrBurn = (fBuid) => {
     return userData.getSentimentByFBuid(fBuid).then(userSentiment => {
         const rand = Math.floor(Math.random() * 12)
+        console.log(rand, 'rand')
+        const neg = Math.sign(userSentiment)
         if (rand !== 0) {
-            if (userSentiment >= 1) return secretFetch(rand)
-            else return burnFetch(rand)
+            console.log(userSentiment, 'sentiment')
+            console.log(neg, 'neg')
+            if (userSentiment >= 1 ) {
+                return secretFetch(rand)
+            } else if (Math.sign(userSentiment) === -1) {
+                return burnFetch(rand)
+                console.log('else')
+            } else {
+                return burnFetch(rand)
+            }
         } else {
             fetchRandSecretOrBurn(userSentiment)
         }
@@ -66,6 +76,7 @@ const replyRandomizer = (messageArr) => {
 // if not, returns random response
 const cathyTriggerFilter = (user, message) => {
     return fetchRandSecretOrBurn(user.userId).then(secret => {
+        console.log(secret, 'secret')
         if (greetings.some(g => message.includes(g))) {
             return `${replyRandomizer(greetings)} ${user.userName}`;
         } else if (secretTriggers.some(s => message.includes(s))) {
